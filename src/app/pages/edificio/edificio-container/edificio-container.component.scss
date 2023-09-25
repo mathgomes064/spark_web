@@ -1,0 +1,234 @@
+@import "../../../../variables/variables.scss";
+
+.searchBarAndButton{
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.searchBarAndButton .innerDiv{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.searchBarAndButton .innerDiv span{
+    width: 300px;
+
+    i{
+        position: absolute;
+        top: 45%;
+        margin-top: -0.5rem;
+        color: $spark-color;
+    }
+
+    input{
+        width: 100%;
+        background-color: $line-color;
+        color: $spark-color;
+        border-radius: 12px;
+
+        &::placeholder{
+            font-size: 14px;
+            color: $spark-color;
+        }
+    }
+}
+
+.searchBarAndButton .innerDiv div{
+    width: 35%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.searchBarAndButton .innerDiv #addButton{
+    width: auto;
+    background-color: $line-color;
+    color: $spark-color;
+    font-size: 14px;
+    border-radius: 12px;
+}
+
+section{
+    width: 90%;
+    height: 85vh;
+    border-radius: 12px 12px 0 0;
+    background-color: $container-background;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: auto;
+    background-image: url("../../../../assets/background.svg");
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: 50% 100%;
+}
+
+#container{
+    ::ng-deep{
+        .p-tabview-nav-link{
+            background-color: transparent;
+            color: $spark-color;
+        }
+        
+        .p-tabview-nav{
+            background-color: transparent;
+        }
+
+        .p-tabview .p-tabview-panels{
+            background-color: transparent;
+        }
+    }
+}
+
+.tableContainer{
+    width: 87vw;
+    height: 90%;
+}
+
+.tableSeparator{
+  border-collapse: separate;
+  border-spacing: 0 12px;
+}
+
+.tableSeparator .line{
+    transition: transform 0.2s ease;
+
+    &:hover{
+        transform: translateY(-5px);
+        background-color: rgb(57 71 92);
+
+    }
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.tittle{
+    font-size: 14px;
+    text-align: center;
+    padding: 10px;
+    font-weight: bold;
+    color: $white-color;
+}
+
+.line{
+    font-size: 14px;
+    background-color: rgba(24, 43, 71, 0.5);
+    border-radius: 12px;
+    cursor: pointer;
+    top: 0;
+    color: $white-color;
+}
+
+.institution{
+    width: 35%;
+    border-radius: 12px 0 0 12px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.rua{
+    width: 30%;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.municipio{
+    text-align: center;
+    vertical-align: middle;
+}
+
+.edificio{
+    width: 7%;
+    color: $spark-color;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.edit{
+    width: 7%;
+    border-radius: 0 12px 12px 0;
+    color: $spark-color;
+    text-align: center;
+    vertical-align: middle;
+}
+
+td{
+    height: 60px;
+    text-align: center;
+    padding: 12px;
+
+    img{
+        width: 20px;
+        cursor: pointer;
+    }
+}
+
+#compartimentosFilter{
+    ::ng-deep{
+        .p-component {
+            color: $black-color;
+        }
+    
+        .p-dropdown {
+            display: inline-flex;
+            cursor: pointer;
+            position: relative;
+            -webkit-user-select: none;
+            user-select: none;
+            background-color: $dialog-color;   
+            border-radius: 12px;
+        }
+
+        .p-dropdown .p-dropdown-label {
+            background: transparent;
+            border: 0 none;
+            color: $spark-color;
+            font-size: 14px;
+        }
+    
+        .p-dropdown-items-wrapper{
+            background-color: $white-color;
+        }
+    
+        .p-dropdown .p-dropdown-trigger {
+            background: transparent;
+            color: $white-color;
+            border-top-right-radius: 4px;
+            border-bottom-right-radius: 4px;
+        }
+    
+        .p-inputtext {
+            width: 100%;
+            height: 99%;
+            border: none;
+    
+            &::placeholder{
+                color: $white-color;
+            }
+        }
+    
+        .p-element{
+            padding: none;
+        }
+    
+        img{
+            width: 100%;
+            height: 80%;
+            cursor: pointer;
+            margin: 0 auto;
+            position: relative;
+            top: -8px
+        }
+    
+    }
+}
+

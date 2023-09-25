@@ -1,0 +1,97 @@
+<section class="atributoSection">
+    <div>
+        <div class="relativeDiv">
+            <h1>Atributo</h1>
+            <button (click)="callConfirmDialog()" class="closeButton" type="button" pButton id="closeButton" label="" icon="pi pi-times">
+            </button>
+        </div>
+        <div>
+            <form [formGroup]="registerTipoItemAtributoForm" (ngSubmit)="submitAtributo()">
+                <span class="descricao p-float-label">
+                    <input formControlName="descricao" class="descricaoInput" pInputText/>
+                    <label class="inputLabel">Descrição</label>
+                </span>
+
+                <span class="descricao p-float-label">
+                    <input formControlName="unidade" class="descricaoInput" pInputText/>
+                    <label class="inputLabel">Unidade de Medida</label>
+                </span>
+
+                <span class="sigla p-float-label">
+                    <input formControlName="sigla" class="siglaInput" maxlength="5" pInputText/>
+                    <label class="siglaLabel">Sigla</label>
+                </span>
+
+                <div class="checkboxDiv">
+                    <label class="floatLabel">Tem Valor?</label>
+                    <label *ngFor="let option of options">
+                        <input 
+                        formControlName="selecionavel" 
+                        type="radio" 
+                        name="selecionavel" 
+                        [value]="option"
+                        (change)="isValorVisible(option)">
+                        {{option}}
+                    </label>
+                </div>
+            </form>
+
+            <div *ngIf="valueOption == 'sim' || valueOption == 'opcional'" class="addValues">
+                <h1>Valores</h1>
+
+                <span *ngFor="let valorObj of valores; let i = index" class="createValue">
+                    
+                    <div class="newValues">
+                        <input
+                        [(ngModel)]="valorObj.valor" 
+                        type="text">
+                    </div>
+                    <button type="button"  (click)="callConfirmValueDialog(i, valorObj.id)"pButton id="closeButton" label="" icon="pi pi-times">
+                    </button>
+                </span>
+
+                <span class="addButton" (click)="adicionarValor()">
+                    <i class="material-icons">add</i>
+                </span>
+            </div>
+
+            <div class="submitDiv">
+                <p-button id="confirmItem" (click)="submitAtributo()" class="submitButton">Salvar</p-button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<p-dialog [(visible)]="createConfirmation" [style]="{
+    width: '40vw',
+    height: '45vh',
+}">
+    <div class="confirmModal">
+        <div class="warningDiv">
+            <i class="material-icons">warning</i>
+            <h2>Anteção!</h2>
+            <h2>Você tem certeza que deseja excluir este atributo?</h2>
+        </div>
+        <div class="warningButtonDiv">
+            <p-button (click)="callConfirmDialog()" id="cancelButton" label="Cancelar"></p-button>
+            <p-button (click)="deleteAtributo()" id="confirmationButton" label="Confirmar"></p-button>
+        </div>
+    </div>
+</p-dialog>
+
+<p-dialog [(visible)]="createConfirmationValue" [style]="{
+    width: '40vw',
+    height: '45vh',
+}">
+    <div class="confirmModal">
+        <div class="warningDiv">
+            <i class="material-icons">warning</i>
+            <h2>Anteção!</h2>
+            <h2>Você tem certeza que deseja excluir este valor?</h2>
+        </div>
+        <div class="warningButtonDiv">
+            <p-button (click)="closeConfirmValueDialog()" id="cancelButton" label="Cancelar"></p-button>
+            <p-button (click)="removerValor()" id="confirmationButton" label="Confirmar"></p-button>
+        </div>
+    </div>
+</p-dialog>

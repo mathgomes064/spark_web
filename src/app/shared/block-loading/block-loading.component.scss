@@ -1,0 +1,27 @@
+
+#loading{
+
+    .text-center{
+        height: 200px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+
+        h4{
+            font-size: 20px;
+            color: white;
+        }
+
+        img{
+            width: 100px;
+            height: 100px;
+        }
+
+    ::ng-deep {
+        .p-dialog-content {
+            background-color: #112037;
+        }
+    }
+}
+}

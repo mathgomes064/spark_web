@@ -1,0 +1,273 @@
+<div class="searchBarAndButton">
+    <div class="innerDiv">
+      <div>
+        <p-dropdown (onChange)="filtrarQuadrosByEdificioId($event.value)" id="compartimentosFilter" placeholder="Filtrar Por Edificio" [options]="edificiosToFilter" optionLabel="nome" optionValue="id">
+          <ng-template pTemplate="item" let-option>
+              <span>{{ option.nome }}</span>
+          </ng-template>
+          <ng-template pTemplate="selectedItem" let-option>
+              <span>{{ option.nome.length > 20 ? option.nome.substr(0, 20) + '...' : option.nome }}</span>
+          </ng-template>
+        </p-dropdown>
+
+        <p-dropdown (onChange)="filtrarQuadroPorCompartimento($event.value)" id="compartimentosFilter" placeholder="Filtrar Por Compartimento" [options]="compartimentosToFilter" optionLabel="descricao" optionValue="id">
+          <ng-template pTemplate="item" let-option>
+              <span>{{ option.descricao }}</span>
+          </ng-template>
+          <ng-template pTemplate="selectedItem" let-option>
+              <span>{{ option.descricao.length > 20 ? option.descricao.substr(0, 20) + '...' : option.descricao }}</span>
+          </ng-template>
+        </p-dropdown>
+      </div>
+
+        <button (click)="createVisible=true" label="Adicionar" id="addButton" icon="pi pi-plus" pButton>
+        </button>
+    </div>
+</div>
+
+<div class="tableContainer">
+    <table class="tableSeparator">
+        <tr>
+          <th class="tittle">Quadro</th>
+          <th class="tittle">Tipo de QGBT</th>
+          <th class="tittle">Disjuntor Principal</th>
+          <th class="tittle"></th>
+        </tr>
+
+        <tr *ngFor="let quadro of quadros" class="line">
+          <td class="institution">{{quadro.quadro_descricao}}</td>
+          <td class="rua">{{quadro.tipo_qgbt}}</td>
+          <td class="municipio">{{quadro.disjuntor_principal}}</td>
+          <td class="edit" (click)="openQuadroToUpdate(quadro.id)"><i class="material-icons">border_color</i></td>
+        </tr>
+    </table>
+</div>
+
+<p-dialog (onHide)="removePreview()" [draggable]="false" [modal]="true" id="dialog" [(visible)]="createVisible">
+  <p-header class="modal_header">
+      <img class="modal_icon" src="../../../../assets/head_spark.svg" alt="">
+      <h3 *ngIf="!createOrEdit">Cadastrar Quadro</h3>
+      <h3 *ngIf="createOrEdit">Editar Quadro</h3>
+  </p-header>
+  <div class="modal">
+      <form [formGroup]="quadroForm" (ngSubmit)="submitQuadroForm()">
+          
+          <span class="inputForm p-float-label">
+            <input formControlName="quadro_descricao" class="inputForm" maxlength="120" pInputText/>
+            <label class="inputFormLabel">Descrição</label>
+          </span>
+
+          <p-dropdown formControlName="tipo_qgbt" id="compartimentoSelect" placeholder="QGBT" [options]="tipo_qgbt" optionValue="descricao">
+            <ng-template pTemplate="item" let-option>
+                <span>{{ option.descricao}}</span>
+            </ng-template>
+            <ng-template pTemplate="selectedItem" let-option>
+                <span>{{ option.descricao.length > 20 ? option.descricao.substr(0, 20) + '...' : option.descricao }}</span>
+            </ng-template>
+          </p-dropdown>
+
+          <p-dropdown formControlName="tamanho_qgbt" id="compartimentoSelect" placeholder="Tamanho" [options]="tamanho_qgbt" optionValue="descricao">
+            <ng-template pTemplate="item" let-option>
+                <span>{{ option.descricao}}</span>
+            </ng-template>
+            <ng-template pTemplate="selectedItem" let-option>
+                <span>{{ option.descricao.length > 20 ? option.descricao.substr(0, 20) + '...' : option.descricao }}</span>
+            </ng-template>
+          </p-dropdown>
+
+          <span class="shared p-float-label">
+              <input formControlName="quantidade_circuito" class="sharedInput" maxlength="120" pInputText/>
+              <label class="sharedLabel">Quantidade</label>
+          </span>
+          <span class="shared p-float-label">
+              <input formControlName="monofasico" class="sharedInput" maxlength="120" pInputText/>
+              <label class="sharedLabel">Monofásico</label>
+          </span>
+          <span class="shared p-float-label">
+              <input formControlName="bifasico" class="sharedInput" maxlength="120" pInputText/>
+              <label class="sharedLabel">Bifásico</label>
+          </span>
+          <span class="shared p-float-label">
+              <input formControlName="trifasico" class="sharedInput" maxlength="120" pInputText/>
+              <label class="sharedLabel">Trifásico</label>
+          </span>
+
+          <p-dropdown formControlName="disjuntor_principal" id="compartimentoSelect" placeholder="Principal" [options]="disjuntor_principal" optionValue="descricao">
+            <ng-template pTemplate="item" let-option>
+                <span>{{ option.descricao}}</span>
+            </ng-template>
+            <ng-template pTemplate="selectedItem" let-option>
+                <span>{{ option.descricao.length > 20 ? option.descricao.substr(0, 20) + '...' : option.descricao }}</span>
+            </ng-template>
+          </p-dropdown>
+
+          <p-dropdown formControlName="polos" id="compartimentoSelect" placeholder="Polos" [options]="polos" optionValue="descricao">
+            <ng-template pTemplate="item" let-option>
+                <span>{{ option.descricao}}</span>
+            </ng-template>
+            <ng-template pTemplate="selectedItem" let-option>
+                <span>{{ option.descricao.length > 20 ? option.descricao.substr(0, 20) + '...' : option.descricao }}</span>
+            </ng-template>
+          </p-dropdown>
+
+          <p-dropdown formControlName="possui_dps" id="compartimentoSelect" placeholder="Possui DPS" [options]="possui_dps" optionValue="descricao">
+            <ng-template pTemplate="item" let-option>
+                <span>{{ option.descricao}}</span>
+            </ng-template>
+            <ng-template pTemplate="selectedItem" let-option>
+                <span>{{ option.descricao.length > 20 ? option.descricao.substr(0, 20) + '...' : option.descricao }}</span>
+            </ng-template>
+          </p-dropdown>
+
+          <span class="shared p-float-label">
+            <input formControlName="quantidade_dps" class="sharedInput" maxlength="120" pInputText/>
+            <label class="sharedLabel">Quantidade</label>
+          </span>
+
+          <p-dropdown *ngIf="!createOrEdit"  formControlName="dps_tipo_id" optionValue="id" id="compartimentoSelect" placeholder="Tipo de DPS" [options]="tipo_dps" (onChange)="getDps($event.value)" [filter]="true" filterBy="descricao">
+            <ng-template pTemplate="item" let-option>
+                <span>{{ option.classe}} {{option.corrente}} {{option.tensao}}</span>
+            </ng-template>
+            <ng-template pTemplate="selectedItem" let-option>
+                <span>{{ option.classe.length > 20 ? option.classe.substr(0, 20) + '...' : option.classe }}</span>
+            </ng-template>
+          </p-dropdown>
+
+          <p-dropdown *ngIf="createOrEdit"  formControlName="dps_tipo_id" id="compartimentoSelect" placeholder="Tipo de DPS" [options]="tipo_dps" (onChange)="getDps($event.value)" [filter]="true" filterBy="classe">
+            <ng-template pTemplate="item" let-option>
+                <span>{{ option.classe}} {{option.corrente}} {{option.tensao}}</span>
+            </ng-template>
+            <ng-template pTemplate="selectedItem" let-option>
+                <span>{{ option.classe.length > 20 ? option.classe.substr(0, 20) + '...' : option.classe }}</span>
+            </ng-template>
+          </p-dropdown>
+
+          <p-dropdown *ngIf="!createOrEdit" (onChange)="throwCompartimentosToSelect($event.value)" optionValue="id" id="compartimentoSelect" placeholder="Edificio" [options]="edificiosToRegister" [filter]="true" filterBy="nome">
+            <ng-template pTemplate="item" let-option>
+                <span>{{ option.nome}}</span>
+            </ng-template>
+            <ng-template pTemplate="selectedItem" let-option>
+                <span>{{ option.nome.length > 20 ? option.nome.substr(0, 20) + '...' : option.nome }}</span>
+            </ng-template>
+          </p-dropdown>
+
+          <p-dropdown *ngIf="!createOrEdit" formControlName="compartimento_id" optionValue="id" id="compartimentoSelect" placeholder="Compartimento" [options]="compartimentosToRegister" [filter]="true" filterBy="descricao">
+            <ng-template pTemplate="item" let-option>
+                <span>{{ option.descricao}}</span>
+            </ng-template>
+            <ng-template pTemplate="selectedItem" let-option>
+                <span>{{ option.descricao.length > 20 ? option.descricao.substr(0, 20) + '...' : option.descricao }}</span>
+            </ng-template>
+          </p-dropdown>
+
+          <div class="specialAlign">
+              <div class="imagens p-float-label">
+                  <div class="AddSide">
+                      <button type="button" class="addImages" (click)="fileInput.click()">
+                          <i class="material-icons">add</i>
+                      </button>
+                      <h2 class="documentsLabel">Adicionar Documentos</h2>
+                      <input #fileInput class="imagensInput" type="file" (change)="handleFileInput($event)" multiple pInputText/>
+                  </div>
+                  <div class="previewSide">
+                      <div *ngIf="previewSrc.length == 0 && imagens?.length == 0" class="warningDiv">
+                          <h2>NENHUM DOCUMENTO ANEXADO</h2>
+                        </div>
+                      <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+                          <div ngxSlickItem *ngFor="let preview of previewSrc; let i = index" class="slide">
+                              <ng-container *ngIf="preview.type.startsWith('image')">
+                                  <div class="innerDivUm" *ngIf="!preview.excluido">
+                                      <button class="closeButton" (click)="removeFromPreview(i)" type="button" pButton id="closeButton" label="" icon="pi pi-times"></button>
+                                      <img (click)="showDetailImage(preview)" [src]="preview.url" alt="Imagem">
+                                  </div>
+                              </ng-container>
+                                  
+                              <ng-container *ngIf="!preview.type.startsWith('image')">
+                                  <div *ngIf="!preview.excluido"  class="innerDivDois">
+                                      <button class="closeButton" (click)="removeFromPreview(i)" type="button" pButton id="closeButton" label="" icon="pi pi-times"></button>
+                                      <i (click)="showHardDetailDocument(preview.url)" class="material-icons">description</i>
+                                      <h2>{{preview.nome}}</h2>
+                                  </div>
+                              </ng-container>
+                          </div>
+
+                          <div ngxSlickItem class="slide" *ngFor="let imagem of imagens; let i = index">
+                              <ng-container *ngIf="imagem.tipo.startsWith('image')">
+                                  <div class="innerDivUm" *ngIf="!imagem.excluido">
+                                      <button class="closeButton" (click)="showCreateConfirmation(imagem, i)" type="button" pButton id="closeButton" label="" icon="pi pi-times"></button>
+                                      <img (click)="showDetailImage(imagem)" [src]="imagem.url" alt="Imagem">
+                                  </div>
+                              </ng-container>
+                               
+                              <ng-container *ngIf="!imagem.tipo.startsWith('image')">
+                                  <div (click)="showDetailDocument(imagem.url)" *ngIf="!imagem.excluido" class="innerDivDois">
+                                      <button class="closeButton" (click)="showCreateConfirmation(imagem, i)" type="button" pButton id="closeButton" label="" icon="pi pi-times"></button>
+                                       <i class="material-icons">description</i>
+                                      <h2>{{imagem.nome}}</h2>
+                                  </div>
+                              </ng-container>
+                          </div>
+                      </ngx-slick-carousel>
+                  </div>
+              </div>
+          </div>
+
+          <button type="submit" label="Confirmar" id="addProperty" pButton></button>
+      </form>
+  </div>
+</p-dialog>
+
+<p-dialog (onHide)="createDPS=false" [draggable]="false" [modal]="true" id="dps_dialog" [(visible)]="createDPS">
+  <p-header class="modal_header">
+      <h3>Adicionar Tipo DPS</h3>
+  </p-header>
+  <div class="modal">
+      <form [formGroup]="createDPSForm" (ngSubmit)="onSubmitDPS()">
+          <div>
+            <span class="inputForm p-float-label">
+                <input formControlName="classe" class="inputForm" maxlength="120" pInputText/>
+                <label class="inputFormLabel">Classe</label>
+            </span>
+            <span class="inputForm p-float-label">
+                <input formControlName="corrente" class="inputForm" maxlength="120" pInputText/>
+                <label class="inputFormLabel">Corrente</label>
+            </span>
+            <span class="inputForm p-float-label">
+                <input formControlName="tensao" class="inputForm" maxlength="120" pInputText/>
+                <label class="inputFormLabel">Tensão</label>
+            </span>
+          </div>
+          <button label="Confirmar" id="addDps" pButton></button>
+      </form>
+  </div>
+</p-dialog>
+
+<p-dialog [draggable]="false" [modal]="true" *ngIf="detailImg" header={{detailImg.nome}} [(visible)]="detailVisable" [style]="{
+    width: '45vw',
+    height: '60vh',
+}">
+    <div class="detailModal">
+        <img class="detailImg" [src]="detailImg.url" alt="">
+    </div>
+</p-dialog>
+
+<p-dialog [draggable]="false" [modal]="true" [(visible)]="createConfirmation" [style]="{
+    width: '40vw',
+    height: '45vh',
+}">
+    <div class="confirmModal">
+        <div class="warningDiv">
+            <i class="material-icons">warning</i>
+            <h2>Anteção!</h2>
+            <h2>Você tem certeza que deseja excluir este documento?</h2>
+        </div>
+        <div class="warningButtonDiv">
+            <p-button (click)="cancelCreateConfirmation()" id="cancelButton" label="Cancelar"></p-button>
+            <p-button (click)="softDeleteImage()" id="confirmationButton" label="Confirmar"></p-button>
+        </div>
+    </div>
+</p-dialog>
+
+<p-toast [style]="{width: '25%'}"></p-toast>
+
+<app-block-loading></app-block-loading>

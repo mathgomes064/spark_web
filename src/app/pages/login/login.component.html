@@ -1,0 +1,17 @@
+<main>
+    <section>
+        <img src="../../../assets/yellow_spark.svg" alt="">
+        <form [formGroup]="loginForm" (ngSubmit)="submitForm()">
+            <div>
+                <input class="emailInput loginField" formControlName="email" placeholder="E-mail" pInputText/>
+
+                <p-password class="passwordInput loginField" formControlName="password" placeholder="Senha" [toggleMask]="true" [feedback]="false"></p-password>
+                
+                <button class="loginButton" id="submitButton" label="Entrar" pButton></button>
+                <a>Esqueci minha senha</a>
+            </div>
+        </form>
+    </section>
+    <p-toast [style]="{width: '25%'}"></p-toast>
+    <app-block-loading></app-block-loading>
+</main>

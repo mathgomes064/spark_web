@@ -1,0 +1,42 @@
+<section>
+    <div class="searchBarAndButton">
+        <div class="innerDiv">
+            <span class="p-input-icon-left">
+              <i class="material-icons">search</i>
+              <input #input (keyup)="search(input.value)" placeholder="Pesquisar" type="text" pInputText/>
+            </span>
+
+            <button label="Adicionar" id="addItem" icon="pi pi-plus" [routerLink]="['/register-tipo-item']" pButton>
+            </button>
+        </div>
+    </div>
+
+    <div class="tableContainer">
+        <table class="tableSeparator">
+            <tr>
+              <th class="tittle">Tipo-Item</th>
+              <th class="tittle">Tipo-Item-Atributo</th>
+              <th class="tittle">Tipo-Item-Valor</th>
+              <th class="tittle"></th>
+            </tr>
+
+            <tr [routerLink]="['/update-tipo-item', tipoItem.id]" *ngFor="let tipoItem of getTipoItens" class="line">
+              <td class="tipoItem">{{tipoItem.descricao}}</td>
+              <div class="atributos">
+                <div>
+                  <p 
+                  *ngFor="let itemAtributo of flatAtributo(tipoItem)"
+                  >{{itemAtributo || '-'}}</p>
+                </div>
+              </div>
+              <td class="valores" *ngFor="let itemAtributoValor of flatAtributoValues(tipoItem)"
+              >{{itemAtributoValor || '-'}}</td>
+              <td class="eye"><i class="material-icons">visibility</i></td>
+            </tr>
+          </table>
+          <div *ngIf="getTipoItens?.length == 0" class="messageDiv">
+            <h1>NENHUM TIPO ITEM CADASTRADO</h1>
+            <i class="material-icons">settings</i>
+          </div>
+    </div>
+</section>

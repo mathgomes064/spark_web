@@ -1,0 +1,89 @@
+@import "../../../variables/variables.scss";
+
+header{
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $spark-color;
+}
+
+header div{
+    width: 95%;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header div .icon {
+    width: 120px;
+    cursor: pointer;
+}
+
+header div .divButtons{
+    width: 40%;
+    height: 100%;
+}
+
+header div .divButtons .headerButton{
+    width: 130px;
+    height: 42px;
+    font-size: 13px;
+    background-color: transparent;
+    border: none;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 12px;
+    color: $primary-color;
+    cursor: pointer;
+
+    &:hover{
+        background-color: $primary-color;
+        color: $spark-color; 
+
+    }
+}
+
+header div .divButtons button.active{
+    background-color: $primary-color;
+    color: $spark-color; 
+}
+
+header div .logout{
+    width: 130px;
+    height: 42px;
+    font-size: 13px;
+    background-color: transparent;
+    border: none;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 12px;
+    color: $primary-color;
+    cursor: pointer;
+
+    &:hover{
+        background-color: $primary-color;
+        color: $spark-color; 
+
+    }
+}
+
+div{
+    width: 100%;
+    height: 40px;
+    
+    #submitButton{
+        width: 40px;
+        height: 100%;
+        border-radius: 0px 0px 12px 0px;
+        border: none;
+        outline: 0;
+        background-color: $spark-color;
+        color: $primary-color;
+        cursor: pointer;
+    }
+}

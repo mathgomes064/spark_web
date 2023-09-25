@@ -1,0 +1,157 @@
+<div class="searchBarAndButton">
+    <div class="innerDiv">
+        <p-dropdown (onChange)="filtrarCompartimentosByEdificioId($event.value)" id="compartimentosFilter" placeholder="Filtrar Por Edificio" [options]="edificiosToFilter" optionLabel="nome" optionValue="id">
+          <ng-template pTemplate="item" let-option>
+              <span>{{ option.nome }}</span>
+          </ng-template>
+          <ng-template pTemplate="selectedItem" let-option>
+              <span>{{ option.nome.length > 20 ? option.nome.substr(0, 20) + '...' : option.nome }}</span>
+          </ng-template>
+        </p-dropdown>
+
+        <button (click)="createVisible=true" label="Adicionar" id="addButton" icon="pi pi-plus" pButton>
+        </button>
+    </div>
+</div>
+<div class="tableContainer">
+    <table class="tableSeparator">
+        <tr>
+          <th class="tittle">Compartimento</th>
+          <th class="tittle">Área</th>
+          <th class="tittle">Andar</th>
+          <th class="tittle"></th>
+        </tr>
+
+        <tr  *ngFor="let compartimento of compartimentos" class="line">
+          <td class="institution">{{compartimento.descricao}}</td>
+          <td class="rua">{{compartimento.largura}} x {{compartimento.comprimento}}</td>
+          <td class="municipio">{{compartimento.andar_compartimento}}</td>
+          <td class="edit" (click)="openCompartimentoToUpdate(compartimento, compartimento.id)"><i class="material-icons">border_color</i></td>
+        </tr>
+    </table>
+</div>
+
+<p-dialog (onHide)="removePreview()" [draggable]="false" [modal]="true" id="dialog" [(visible)]="createVisible">
+  <p-header class="modal_header">
+      <img class="modal_icon" src="../../../../assets/head_spark.svg" alt="">
+      <h3 *ngIf="!createOrEdit">Cadastrar Compartimento</h3>
+      <h3 *ngIf="createOrEdit">Editar Compartimento</h3>
+  </p-header>
+  <div class="modal">
+      <form [formGroup]="compartimentoForm" (ngSubmit)="submitCompartimentoForm()">
+          
+          <span class="inputForm p-float-label">
+            <input formControlName="descricao" class="inputForm" maxlength="120" pInputText/>
+            <label class="inputFormLabel">Descrição</label>
+          </span>
+
+          <span class="shared p-float-label">
+              <input formControlName="largura" class="sharedInput" maxlength="120" pInputText/>
+              <label class="sharedLabel">Largura</label>
+          </span>
+
+          <span class="shared p-float-label">
+              <input formControlName="comprimento" class="sharedInput" maxlength="120" pInputText/>
+              <label class="sharedLabel">Comprimento</label>
+          </span>
+
+          <p-dropdown formControlName="edificio" id="compartimentoSelect" placeholder="Edificio" [options]="edfParaAtualizar" [filter]="true" filterBy="nome">
+            <ng-template pTemplate="item" let-option>
+                <span>{{ option.nome}}</span>
+            </ng-template>
+            <ng-template pTemplate="selectedItem" let-option>
+                <span>{{ option.nome.length > 20 ? option.nome.substr(0, 20) + '...' : option.nome }}</span>
+            </ng-template>
+          </p-dropdown>
+
+          <span class="shared p-float-label">
+            <input formControlName="andar_compartimento" class="sharedInput" maxlength="120" pInputText/>
+            <label class="sharedLabel">Andar do Compartimento</label>
+          </span>
+
+          <div class="specialAlign">
+              <div class="imagens p-float-label">
+                  <div class="AddSide">
+                      <button type="button" class="addImages" (click)="fileInput.click()">
+                          <i class="material-icons">add</i>
+                      </button>
+                      <h2 class="documentsLabel">Adicionar Documentos</h2>
+                      <input #fileInput class="imagensInput" type="file" (change)="handleFileInput($event)" multiple pInputText/>
+                  </div>
+                  <div class="previewSide">
+                      <div *ngIf="previewSrc.length == 0 && imagens?.length == 0" class="warningDiv">
+                          <h2>NENHUM DOCUMENTO ANEXADO</h2>
+                        </div>
+                      <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+                          <div ngxSlickItem *ngFor="let preview of previewSrc; let i = index" class="slide">
+                              <ng-container *ngIf="preview.type.startsWith('image')">
+                                  <div class="innerDivUm" *ngIf="!preview.excluido">
+                                      <button class="closeButton" (click)="removeFromPreview(i)" type="button" pButton id="closeButton" label="" icon="pi pi-times"></button>
+                                      <img (click)="showDetailImage(preview)" [src]="preview.url" alt="Imagem">
+                                  </div>
+                              </ng-container>
+                                  
+                              <ng-container *ngIf="!preview.type.startsWith('image')">
+                                  <div *ngIf="!preview.excluido"  class="innerDivDois">
+                                      <button class="closeButton" (click)="removeFromPreview(i)" type="button" pButton id="closeButton" label="" icon="pi pi-times"></button>
+                                      <i (click)="showHardDetailDocument(preview.url)" class="material-icons">description</i>
+                                      <h2>{{preview.nome}}</h2>
+                                  </div>
+                              </ng-container>
+                          </div>
+
+                          <div ngxSlickItem class="slide" *ngFor="let imagem of imagens; let i = index">
+                              <ng-container *ngIf="imagem.tipo.startsWith('image')">
+                                  <div class="innerDivUm" *ngIf="!imagem.excluido">
+                                      <button class="closeButton" (click)="showCreateConfirmation(imagem, i)" type="button" pButton id="closeButton" label="" icon="pi pi-times"></button>
+                                      <img (click)="showDetailImage(imagem)" [src]="imagem.url" alt="Imagem">
+                                  </div>
+                              </ng-container>
+                               
+                              <ng-container *ngIf="!imagem.tipo.startsWith('image')">
+                                  <div (click)="showDetailDocument(imagem.url)" *ngIf="!imagem.excluido" class="innerDivDois">
+                                      <button class="closeButton" (click)="showCreateConfirmation(imagem, i)" type="button" pButton id="closeButton" label="" icon="pi pi-times"></button>
+                                       <i class="material-icons">description</i>
+                                      <h2>{{imagem.nome}}</h2>
+                                  </div>
+                              </ng-container>
+                          </div>
+                      </ngx-slick-carousel>
+                  </div>
+              </div>
+          </div>
+
+          <button type="submit" label="Confirmar" id="addProperty" pButton></button>
+      </form>
+  </div>
+</p-dialog>
+
+<p-dialog [draggable]="false" [modal]="true" *ngIf="detailImg" header={{detailImg.nome}} [(visible)]="detailVisable" [style]="{
+    width: '45vw',
+    height: '60vh',
+}">
+    <div class="detailModal">
+        <img class="detailImg" [src]="detailImg.url" alt="">
+    </div>
+</p-dialog>
+
+<p-dialog [draggable]="false" [modal]="true" [(visible)]="createConfirmation" [style]="{
+    width: '40vw',
+    height: '45vh',
+}">
+    <div class="confirmModal">
+        <div class="warningDiv">
+            <i class="material-icons">warning</i>
+            <h2>Anteção!</h2>
+            <h2>Você tem certeza que deseja excluir este documento?</h2>
+        </div>
+        <div class="warningButtonDiv">
+            <p-button (click)="cancelCreateConfirmation()" id="cancelButton" label="Cancelar"></p-button>
+            <p-button (click)="softDeleteImage()" id="confirmationButton" label="Confirmar"></p-button>
+        </div>
+    </div>
+</p-dialog>
+
+<p-toast [style]="{width: '25%'}"></p-toast>
+
+<app-block-loading></app-block-loading>

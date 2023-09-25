@@ -1,0 +1,25 @@
+
+//Modal
+.p-dialog .p-dialog-header{
+    font-weight: 500;
+    font-size: 1.25rem;
+    background-color: $dialog-color;
+    color: $white-color;
+}
+
+::-webkit-scrollbar {
+width: 5px;             
+border-top-right-radius: 5px;
+border-bottom-right-radius: 5px;
+}
+
+::-webkit-scrollbar-track {
+background: $line-color;       
+border-radius: 20px;      
+}
+
+::-webkit-scrollbar-thumb {
+background-color: $primary-color;    
+border-radius: 20px;      
+border: 6px solid $line-color;  
+}

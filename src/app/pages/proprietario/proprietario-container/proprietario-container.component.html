@@ -1,0 +1,268 @@
+<section>
+    <div class="searchBarAndButton">
+        <div class="innerDiv">
+            <span class="p-input-icon-left">
+              <i class="material-icons">search</i>
+              <input #input (keyup)="search(input.value)" placeholder="Pesquisar" type="text" pInputText/>
+            </span>
+
+            <button label="Adicionar" id="addButton" icon="pi pi-plus" (click)="showCreateModal()" pButton>
+            </button>
+        </div>
+    </div>
+
+    <div class="tableContainer">
+        <table class="tableSeparator">
+            <tr>
+              <th class="tittle">Nome/Razão Social</th>
+              <th class="tittle">Email</th>
+              <th class="tittle">CPF/CNPJ</th>
+              <th class="tittle"></th>
+            </tr>
+
+            <tr (click)="showUpdateModal(proprietario, proprietario.id)" *ngFor="let proprietario of getCurrentProprietarios" class="line">
+              <td class="name">{{proprietario.nome}}</td>
+              <div class="email">
+                <div>
+                  <p>{{proprietario.email}}</p>
+                </div>
+              </div>
+              <td>{{proprietario.cpf_cnpj | cpfCnpj}}</td>
+              <td class="eye"><i class="material-icons">visibility</i></td>
+            </tr>
+          </table>
+          <div *ngIf="getCurrentProprietarios?.length == 0" class="messageDiv">
+            <h1>NENHUM PROPRIETARIO CADASTRADO</h1>
+            <i class="material-icons">settings</i>
+          </div>
+    </div>
+    
+    <p-dialog [draggable]="false" [modal]="true" id="dialog" (onHide)="removePreview()" [(visible)]="createVisible">
+    <p-header class="modal_header">
+      <img class="modal_icon" src="../../../../assets/head_spark.svg" alt="">
+      <h3>Cadastrar Proprietário</h3>
+    </p-header>
+    <div class="modal">
+      <form class="choiceDiv">
+        <label *ngFor="let option of options">
+          <input 
+            type="radio" 
+            name="selecionavel" 
+            [value]="option"
+            [(ngModel)]="selectedOption" 
+            (ngModelChange)="onOptionChange()">
+            {{option}}
+        </label>
+      </form>
+      <form [formGroup]="registerProprietarioForm" (ngSubmit)="submitRegisterProprietarioForm()" class="registerForm">
+        <div class="divUm">
+            <span *ngIf="selectedOption=='Pessoa Física'" class="nome_razao_social p-float-label">
+              <input formControlName="nome" class="nome_razao_social_input" maxlength="120" pInputText/>
+              <label>Nome</label>
+            </span>
+
+            <span *ngIf="selectedOption=='Pessoa Jurídica'" class="nome_razao_social p-float-label">
+              <input formControlName="nome" class="nome_razao_social_input" maxlength="120" pInputText/>
+              <label>Razão Social</label>
+            </span>
+
+            <span class="email p-float-label">
+              <input formControlName="email" class="email_input" maxlength="50" pInputText/>
+              <label>E-mail</label>
+            </span>
+
+            <span class="celular p-float-label">
+              <p-inputMask id="celular_input" [unmask]="true" formControlName="celular" mask="(99) 99999-9999"></p-inputMask>
+              <label>Celular</label>
+            </span>
+
+            <span class="cnpj p-float-label">
+              <p-inputMask  id="cnpj_input" [unmask]="true" *ngIf="selectedOption=='Pessoa Física'" formControlName="cpf_cnpj" mask="999.999.999-99"></p-inputMask>
+              <p-inputMask  id="cnpj_input" [unmask]="true" *ngIf="selectedOption=='Pessoa Jurídica'" formControlName="cpf_cnpj" mask="99.999.999/9999-99"></p-inputMask>
+              <label>CPF/CNPJ</label>
+            </span>
+
+            <div class="specialAlign">
+                <div class="imagens p-float-label">
+                    <div class="addSide">
+                      <div class="addImages" (click)="fileInput.click()">
+                        <i class="material-icons">add</i>
+                      </div>
+                      <h2 class="documentsLabel">Adicionar Documentos de Identificação</h2>
+                      <input (change)="handleFileInput($event)" #fileInput type="file" class="documento_input" multiple pInputText/>
+                    </div>
+
+                    <div class="previewSide">
+                      <div *ngIf="previewSrc.length == 0" class="warningDiv">
+                        <h2>NENHUM DOCUMENTO ANEXADO</h2>
+                      </div>
+                      <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+                        <div ngxSlickItem class="slide" *ngFor="let preview of previewSrc; let i = index" class="slide">
+                          <ng-container *ngIf="preview.type.startsWith('image')">
+                              <div class="innerDivUm" *ngIf="!preview.excluido">
+                                  <button class="closeButton" (click)="removeFromPreview(i)" type="button" pButton id="closeButton" label="" icon="pi pi-times"></button>
+                                  <img (click)="showDetailImage(preview)" [src]="preview.url" alt="Imagem">
+                              </div>
+                          </ng-container>
+                              
+                          <ng-container *ngIf="!preview.type.startsWith('image')">
+                              <div (click)="showHardDetailDocument(preview.url)" *ngIf="!preview.excluido"  class="innerDivDois">
+                                  <button class="closeButton" (click)="removeFromPreview(i)" type="button" pButton id="closeButton" label="" icon="pi pi-times"></button>
+                                  <i class="material-icons">description</i>
+                                  <h2>{{preview.nome}}</h2>
+                              </div>
+                          </ng-container>
+                      </div>
+                    </ngx-slick-carousel>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <button label="Confirmar" id="addProperty" pButton></button>
+      </form>
+    </div>
+    </p-dialog>
+
+  <p-dialog [draggable]="false" [modal]="true" id="dialog" (onHide)="removePreview()" [(visible)]="updateVisible">
+  <p-header class="modal_header">
+    <img class="modal_icon" src="../../../../assets/head_spark.svg" alt="">
+    <h3>Editar Proprietário</h3>
+  </p-header>
+  <div class="modal">
+    <form class="choiceDiv">
+      <label *ngFor="let option of options">
+        <input 
+          type="radio" 
+          name="selecionavel" 
+          [value]="option"
+          [(ngModel)]="selectedOption" 
+          (ngModelChange)="onOptionChange()">
+          {{option}}
+      </label>
+    </form>
+    <form [formGroup]="registerUpdateProprietarioForm" (ngSubmit)="submitUpdateProprietarioForm()" class="registerForm">
+      <div class="divUm">
+          <span *ngIf="selectedOption=='Pessoa Física'" class="nome_razao_social p-float-label">
+            <input formControlName="nome" class="nome_razao_social_input" maxlength="120" pInputText/>
+            <label>Nome</label>
+          </span>
+
+          <span *ngIf="selectedOption=='Pessoa Jurídica'" class="nome_razao_social p-float-label">
+            <input formControlName="nome" class="nome_razao_social_input" maxlength="120" pInputText/>
+            <label>Razão Social</label>
+          </span>
+
+          <span class="email p-float-label">
+            <input formControlName="email" class="email_input" maxlength="50" pInputText/>
+            <label>E-mail</label>
+          </span>
+          
+          <span class="celular p-float-label">
+            <p-inputMask id="celular_input" [unmask]="true" formControlName="celular" mask="(99) 99999-9999"></p-inputMask>
+            <label>Celular</label>
+          </span>
+
+          <span class="cnpj p-float-label">
+            <p-inputMask id="cnpj_input" [unmask]="true" *ngIf="selectedOption=='Pessoa Física'" formControlName="cpf_cnpj" mask="999.999.999-99"></p-inputMask>
+            <p-inputMask id="cnpj_input" [unmask]="true" *ngIf="selectedOption=='Pessoa Jurídica'" formControlName="cpf_cnpj" mask="99.999.999/9999-99"></p-inputMask>
+            <label>CPF/CNPJ</label>
+          </span>
+
+          <div class="divDois">
+              <div class="innerDivUm">
+              </div>
+     
+          </div>
+
+          <div class="specialAlign">
+              <div class="imagens p-float-label">
+                    <div class="addSide">
+                      <div class="addImages" (click)="fileInput.click()">
+                        <i class="material-icons">add</i>
+                      </div>
+                      <h2 class="documentsLabel">Adicionar Documentos de Identificação</h2>
+                      <input (change)="handleFileInput($event)" #fileInput type="file" class="documento_input" multiple pInputText/>
+                    </div>
+
+                    <div class="previewSide">
+                      <div *ngIf="previewSrc.length == 0 && documents.length == 0" class="warningDiv">
+                        <h2>NENHUM DOCUMENTO ANEXADO</h2>
+                      </div>
+
+                      <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+                          <div ngxSlickItem class="slide" *ngFor="let preview of previewSrc; let i = index" class="slide">
+                              <ng-container *ngIf="preview.type.startsWith('image')">
+                                  <div class="innerDivUm" *ngIf="!preview.excluido">
+                                      <button class="closeButton" (click)="removeFromPreview(i)" type="button" pButton id="closeButton" label="" icon="pi pi-times"></button>
+                                      <img (click)="showDetailImage(preview)" [src]="preview.url" alt="Imagem">
+                                  </div>
+                              </ng-container>
+                                  
+                              <ng-container *ngIf="!preview.type.startsWith('image')">
+                                  <div *ngIf="!preview.excluido"  class="innerDivDois">
+                                      <button class="closeButton" (click)="removeFromPreview(i)" type="button" pButton id="closeButton" label="" icon="pi pi-times"></button>
+                                      <i (click)="showHardDetailDocument(preview.url)" class="material-icons">description</i>
+                                      <h2>{{preview.nome}}</h2>
+                                  </div>
+                              </ng-container>
+                          </div>
+      
+                          <div ngxSlickItem class="slide" *ngFor="let document of documents; let i = index">
+                              <ng-container *ngIf="document.tipo.startsWith('image')">
+                                  <div class="innerDivUm" *ngIf="!document.excluido">
+                                      <button class="closeButton" (click)="showCreateConfirmation(document, i)" type="button" pButton id="closeButton" label="" icon="pi pi-times"></button>
+                                      <img (click)="showDetailImage(document)" [src]="document.url" alt="Imagem">
+                                  </div>
+                              </ng-container>
+                              
+                              <ng-container *ngIf="!document.tipo.startsWith('image')">
+                                  <div (click)="showDetailDocument(document.url)" *ngIf="!document.excluido" class="innerDivDois">
+                                      <button class="closeButton" (click)="showCreateConfirmation(document, i)" type="button" pButton id="closeButton" label="" icon="pi pi-times"></button>
+                                      <i  class="material-icons">description</i>
+                                      <h2>{{document.nome}}</h2>
+                                  </div>
+                              </ng-container>
+                          </div>
+                      </ngx-slick-carousel>
+                    </div>
+              </div>
+          </div>
+      </div>
+
+      <button label="Confirmar" id="addProperty" pButton></button>
+    </form>
+  </div>
+    </p-dialog>
+
+    <p-dialog [draggable]="false" [modal]="true" *ngIf="detailImg" header={{detailImg.nome}} [(visible)]="detailVisable" [style]="{
+      width: '55vw',
+      height: '70vh',
+  }">
+      <div class="detailModal">
+          <img class="detailImg" [src]="detailImg.url" alt="">
+      </div>
+  </p-dialog>
+
+  <p-dialog [draggable]="false" [modal]="true" [(visible)]="createConfirmation" [style]="{
+      width: '40vw',
+      height: '45vh',
+  }">
+      <div class="confirmModal">
+          <div class="warningDiv">
+              <i class="material-icons">warning</i>
+              <h2>Anteção!</h2>
+              <h2>Você tem certeza que deseja excluir este documento?</h2>
+          </div>
+          <div class="warningButtonDiv">
+              <p-button (click)="cancelCreateConfirmation()" id="cancelButton" label="Cancelar"></p-button>
+              <p-button (click)="softDeleteImage()" id="confirmationButton" label="Confirmar"></p-button>
+          </div>
+      </div>
+  </p-dialog>
+
+  <p-toast [style]="{width: '25%'}"></p-toast>
+
+  <app-block-loading></app-block-loading>
+</section>

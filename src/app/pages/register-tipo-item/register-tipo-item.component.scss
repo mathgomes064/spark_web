@@ -1,0 +1,332 @@
+@import "../../../variables/variables.scss";
+
+main{
+    width: 100vw;
+    height: 100vh;
+    background-color: $primary-color;
+    overflow: auto;
+    background-image: url("../../../assets/secondaryBackground.svg");
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-size: 100% 69%;
+
+    .p-messages-custom {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 9999;
+    }
+}
+
+.itemSection{
+    width: 100%;
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .dados-enviados {
+        background-color: $default;
+    }
+
+    div{
+        width: 90%;
+        height: 100%;
+        border-radius: 12px;
+        background-color: $container-background;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+
+
+        form{
+            width: 93.5%;
+            height: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+
+            .relativeDiv{
+                width: 100%;
+                height: 130%;
+                display: flex;
+                justify-content: flex-start;
+                align-items: flex-start;
+                position: absolute;
+                background-color: transparent;
+
+                .dados-enviados {
+                    background-color: $default;
+                }
+                h1{
+                    width: 120px;
+                    height: 50px;
+                    border-radius: 12px;
+                    font-weight: 400;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    text-align: right;
+                    position: absolute;
+                    background-color: $container-background;
+                    color: $white-color;
+                    font-size: 14px;
+                }
+            }
+
+            .descricao{
+                width: 20%;
+                height: 50px;
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                border-radius: 5px;
+                background-color: transparent;   
+
+                .descricaoInput{
+                    width: 100%;
+                    height: 100%;
+                    border: none;
+                    outline: 0;
+                    padding-left: 10px;  
+                    border: 1px solid $spark-color;
+                    background-color:$container-background;   
+                    color: $white-color;
+                    font-size: 14px;
+                }
+
+                .inputLabel{
+                    border-radius: 4px;
+                    color: $white-color;
+                    background-color: $container-background;   
+                    font-size: 12px;
+                }
+            }
+
+            .grupos{
+                width: 60%;
+                height: 70%;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-around;
+                align-items: center;
+
+                .dropdown{
+                    width: 35%;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    background-color: transparent;
+                }
+            }
+
+            #confirmItem{
+                ::ng-deep{
+                    .p-button{
+                        background-color: $spark-color;
+                        color: $container-background;
+                        padding: 10px;
+                        font-size: 14px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+:host ::ng-deep .p-dialog .p-dialog-content {
+    background: $dialog-color;
+    color: rgba(0, 0, 0, 0.87);
+    padding: 0 1.5rem 1.5rem 1.5rem;
+}
+
+:host ::ng-deep .p-dialog-draggable .p-dialog-header {
+    background: $dialog-color;
+}
+
+:host ::ng-deep .p-dialog .p-dialog-header .p-dialog-title {
+    font-weight: 500;
+    font-size: 1.25rem;
+    color: $white-color;
+}
+
+:host ::ng-deep .p-dialog .p-dialog-header .p-dialog-header-icon:last-child {
+    margin-right: 0;
+    color: white;
+}
+
+:host ::ng-deep {
+    .p-component {
+        color: $black-color;
+    }
+
+    .p-inputwrapper{
+        width: 100%;
+    }
+
+    .p-dropdown {
+        width: 100%;
+        display: inline-flex;
+        cursor: pointer;
+        position: relative;
+        -webkit-user-select: none;
+        user-select: none;
+        border: 1px solid $spark-color;
+        background-color: $container-background;   
+    }
+    
+    .p-dropdown .p-dropdown-label {
+        background: transparent;
+        border: 0 none;
+        color: $white-color;
+        font-size: 14px;
+    }
+
+    .p-dropdown-items-wrapper{
+        background-color: $white-color;
+    }
+
+    .p-dropdown .p-dropdown-trigger {
+        background: transparent;
+        color: $white-color;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+    }
+
+    .dados-enviados {
+        .p-dropdown {
+            background-color: $default;
+            color: $white-color;
+        }
+    }
+}
+
+#dialog{
+    ::ng-deep{
+        .p-dialog{
+            width: 40vw;
+            height: 40vh;
+        }
+    }
+}
+
+.modal_header{
+    width: auto;
+    height: 50px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 16px;
+
+    .modal_icon{
+        width: 25px;
+        height: 25px;
+        margin: 0;
+        position: relative;
+        top: 0px;
+    }
+
+    h3{
+        width: auto;
+        margin-left: 10px;
+    }
+
+}
+
+.modal{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    flex-wrap: wrap;
+}
+
+.modal form{
+    width: 100%;
+    height: 90%;
+    margin-top: 10px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+
+    div{
+        width: 100%;
+        height: 50%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+
+        .grupo{
+            width: 49%;
+            height: 50px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+    
+            .grupoInput{
+                width: 100%;
+                height: 100%;
+                padding-left: 10px;
+                border: 1px solid $spark-color;
+                background-color: $dialog-color;
+                color: $white-color;
+                font-size: 14px;
+            }
+    
+            .grupoLabel{
+                color: $white-color;
+                background-color: $dialog-color;
+                border-radius: 4px;
+                font-size: 12px;
+            }
+        }
+
+            .dropdownDiv{
+                width: 49%;
+                height: 100%;
+                display: flex;
+                justify-content: flex-end;
+
+                ::ng-deep{
+                    .p-dropdown {
+                        background-color: $dialog-color;   
+                    }
+                }
+            }
+
+    }
+
+
+    #addProperty{
+        width: 100%;
+        height: 40px;
+        font-size: 20px;
+        border: none;
+        border-radius: 4px;
+        outline: 0;
+        cursor: pointer;
+        background-color: $spark-color;
+        color: $dialog-color;
+        font-size: 14px;
+    }
+}
+
+footer{
+    width: 100%;
+    height: 300px;
+    background-color: transparent;
+
+}
+
+
+
+
+
+
+

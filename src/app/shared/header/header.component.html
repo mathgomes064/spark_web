@@ -1,0 +1,34 @@
+<header>
+        <div>
+            <img [routerLink]="['/propriedades']" src="../../../assets/dark_spark.svg" alt="logo" class="icon">
+            <div class="divButtons">
+                <button class="headerButton" *ngIf="userPermissions[2].visualizar"
+                        [class.active]="isPropriedadeRoute"
+                        [routerLink]="['/propriedades']">
+                    <i class="material-icons">apartment</i>
+                    Propriedades
+                </button>
+                <button class="headerButton" *ngIf="userPermissions[3].visualizar"
+                        [class.active]="isTipoItemRoute"
+                        routerLink="/tipo-item-list">
+                    <i class="material-icons">bolt</i>
+                    Tipo-Item
+                </button>
+                <button class="headerButton" *ngIf="userPermissions[1].visualizar" routerLinkActive="active" [routerLink]="['/proprietario']">
+                    <i class="material-icons">real_estate_agent</i>
+                    Proprietário
+                </button>
+                <button class="headerButton" *ngIf="userPermissions[0].visualizar" routerLinkActive="active" [routerLink]="['/user']">
+                    <i class="material-icons">account_circle</i>
+                    Usuário
+                </button>
+            </div>
+            <button class="logout" (click)="deslogar()" [routerLink]="['/user']">
+                <i class="material-icons">logout</i>
+                Sair
+            </button>
+        </div>
+</header>
+<div *ngIf="back_button" >
+    <button (click)="voltarParaPaginaAnterior()" pButton id="submitButton" label="" icon="pi pi-arrow-left"></button>
+</div>

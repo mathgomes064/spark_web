@@ -1,0 +1,11 @@
+<div *ngIf="isLoading$ | async">
+    <p-dialog id="loading" [(visible)]="dialogVisible" [modal]="true" [closeOnEscape]="false" [closable]="false" [showHeader]="false"
+        [style]="{width: '20vw'}" [breakpoints]="{'960px': '75vw', '640px': '90vw'}" [draggable]="false"
+        [baseZIndex]="10000" [resizable]="false">
+        <div class="text-center">
+            <!-- <p-progressSpinner></p-progressSpinner> -->
+            <img src="../../../assets/loading_spark.gif" alt="">
+            <h4>Carregando...</h4>
+        </div>
+    </p-dialog>
+</div>

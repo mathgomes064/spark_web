@@ -1,0 +1,190 @@
+<div class="searchBarAndButton">
+    <div class="innerDiv">
+      <div>
+        <p-dropdown (onChange)="listarItemPorEdificioId($event.value)" id="compartimentosFilter" placeholder="Filtrar Por Edificio" [options]="edificiosToFilter" optionLabel="nome" optionValue="id">
+          <ng-template pTemplate="item" let-option>
+              <span>{{ option.nome }}</span>
+          </ng-template>
+          <ng-template pTemplate="selectedItem" let-option>
+              <span>{{ option.nome.length > 20 ? option.nome.substr(0, 20) + '...' : option.nome }}</span>
+          </ng-template>
+        </p-dropdown>
+
+        <p-dropdown (onChange)="listarItemPorCompartimentoId($event.value)" id="compartimentosFilter" placeholder="Filtrar Por Compartimento" [options]="compartimentosToFilter" optionLabel="descricao" optionValue="id">
+          <ng-template pTemplate="item" let-option>
+              <span>{{ option.descricao }}</span>
+          </ng-template>
+          <ng-template pTemplate="selectedItem" let-option>
+              <span>{{ option.descricao.length > 20 ? option.descricao.substr(0, 20) + '...' : option.descricao }}</span>
+          </ng-template>
+        </p-dropdown>
+      </div>
+
+        <button (click)="openItemToCreate()" label="Adicionar" id="addButton" icon="pi pi-plus" pButton>
+        </button>
+    </div>
+</div>
+<div class="tableContainer">
+    <table class="tableSeparator">
+        <tr>
+          <th class="tittle">Item</th>
+          <th class="tittle">Atributo</th>
+          <th class="tittle">Valor</th>
+          <th class="tittle"></th>
+        </tr>
+
+        <tr *ngFor="let item of itens" class="line">
+          <td class="institution">{{item.descricao}}</td>
+          <td class="rua" *ngFor="let itemAtributo of flatAtributo(item)">{{itemAtributo || '-'}}</td>
+          <td *ngFor="let itemAtributoValor of flatAtributoValues(item)" class="municipio">{{itemAtributoValor || '-'}}</td>
+          <td class="edit" (click)="openItemToUpdate(item.id)"><i class="material-icons">border_color</i></td>
+        </tr>
+    </table>
+</div>
+
+<p-dialog (onHide)="removePreview()" [draggable]="false" [modal]="true" id="dialog" [(visible)]="createVisible">
+  <p-header class="modal_header">
+      <img class="modal_icon" src="../../../../assets/head_spark.svg" alt="">
+      <h3>Cadastrar Item</h3>
+  </p-header>
+  <div class="modal">
+    <form class="innerDiv" [formGroup]="itemForm" (ngSubmit)="submitItem()">
+        <div class="filtro">
+            <p-dropdown (onChange)="listarItemPorEdificioId($event.value)" id="compartimentosFilter" placeholder="Filtrar Por Edificio" [options]="edificiosToFilter" optionLabel="nome" optionValue="id">
+                <ng-template pTemplate="item" let-option>
+                    <span>{{ option.nome }}</span>
+                </ng-template>
+                <ng-template pTemplate="selectedItem" let-option>
+                    <span>{{ option.nome.length > 20 ? option.nome.substr(0, 20) + '...' : option.nome }}</span>
+                </ng-template>
+              </p-dropdown>
+      
+              <p-dropdown formControlName="compartimentoId" (onChange)="listarItemPorCompartimentoId($event.value)" id="compartimentosFilter" placeholder="Filtrar Por Compartimento" [options]="compartimentosToFilter" optionLabel="descricao" optionValue="id">
+                <ng-template pTemplate="item" let-option>
+                    <span>{{ option.descricao }}</span>
+                </ng-template>
+                <ng-template pTemplate="selectedItem" let-option>
+                    <span>{{ option.descricao.length > 20 ? option.descricao.substr(0, 20) + '...' : option.descricao }}</span>
+                </ng-template>
+              </p-dropdown>
+        </div>
+
+        <section class="itemSection">
+                <div class="innerInformation">
+                    <p-dropdown id="tipo_item" *ngIf="!currentItemId"  formControlName="tipo_item_id" (onChange)="filtrarTipoItemAtributo($event.value)" [options]="tipoItem" placeholder="Tipo Item" [filter]="true" filterBy="descricao" optionValue="id">
+                        <ng-template pTemplate="item" let-option>
+                            <span>{{ option.descricao}}</span>
+                        </ng-template>
+                        <ng-template pTemplate="selectedItem" let-option>
+                            <span>{{ option.descricao.length > 20 ? option.descricao.substr(0, 20) + '...' : option.descricao }}</span>
+                        </ng-template>
+                    </p-dropdown>
+                    
+                    <span class="descricao p-float-label">
+                        <input formControlName="descricao" class="descricaoInput" pInputText/>
+                        <label class="inputLabel">Nome</label>
+                    </span> 
+            
+                    <span class="descricao p-float-label">
+                        <input formControlName="quantidade" class="descricaoInput" pInputText/>
+                        <label class="inputLabel">Quantidade</label>
+                    </span> 
+                    
+                    <!-- ATRIBUTOS PARA CRIACAO -->
+
+                    <div class="atributoDiv" *ngIf="!currentItemId">
+                        <div class="innerAtributoDiv" *ngFor="let input of itemAtributodToRegister">
+                            <div class="atributoBox" *ngIf="input.selecionavel === 'sim'">
+                                <label class="boxLabel">{{input.descricao}}: </label>
+                                <select class="boxSelect" [(ngModel)]="input.valor" [ngModelOptions]="{standalone: true}">
+                                    <option *ngFor="let valor of input.tipoItemValor" [value]="valor.valor">{{valor.valor}} ({{input.sigla}})</option>
+                                </select>
+                            </div>
+                        
+                            <div class="atributoBox" *ngIf="input.selecionavel === 'não'">
+                                <span class="consumo p-float-label">
+                                    <input [(ngModel)]="input.valor" [ngModelOptions]="{standalone: true}" class="consumoInput" pInputText placeholder="Insira {{input.descricao}}">
+                                    <label class="consumoLabel">{{input.descricao}}</label>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ATRIBUTOS PARA EDICAO -->
+                    <div class="atributoDiv" *ngIf="currentItemId">
+                        <div class="innerAtributoDiv" *ngFor="let input of itemAtributoToUpdate">
+                            <div class="atributoBox" *ngIf="input.selecionavel === 'sim'">
+                                <label class="boxLabel">{{input.descricao}}: </label>
+                                <select [(ngModel)]="input.valor" [ngModelOptions]="{standalone: true}" class="boxSelect">
+                                    <option *ngFor="let valor of input.tipoItemValor" [value]="valor.valor">{{valor.valor}} ({{input.sigla}})</option>
+                                </select>
+                            </div>
+                        
+                            <div class="atributoBox" *ngIf="input.selecionavel === 'não'">
+                                <span class="consumo p-float-label">
+                                    <input [(ngModel)]="input.valor" [ngModelOptions]="{standalone: true}" class="consumoInput" pInputText placeholder="Insira {{input.descricao}}">
+                                    <label class="consumoLabel">{{input.descricao}}</label>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+        </section>
+
+        <div class="specialAlign">
+            <div class="imagens p-float-label">
+                <div class="AddSide">
+                    <button type="button" class="addImages" (click)="fileInput.click()">
+                        <i class="material-icons">add</i>
+                    </button>
+                    <h2 class="documentsLabel">Adicionar Documentos</h2>
+                    <input #fileInput class="imagensInput" type="file" (change)="handleFileInput($event)" multiple pInputText/>
+                </div>
+                  <div class="previewSide">
+                      <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+                          <div ngxSlickItem *ngFor="let preview of previewSrc; let i = index" class="slide">
+                              <ng-container *ngIf="preview.type.startsWith('image')">
+                                  <div class="innerDivUm" *ngIf="!preview.excluido">
+                                      <button class="closeButton" (click)="removeFromPreview(i)" type="button" pButton id="closeButton" label="" icon="pi pi-times"></button>
+                                      <img (click)="showDetailImage(preview)" [src]="preview.url" alt="Imagem">
+                                  </div>
+                              </ng-container>
+                                  
+                              <ng-container *ngIf="!preview.type.startsWith('image')">
+                                  <div *ngIf="!preview.excluido"  class="innerDivDois">
+                                      <button class="closeButton" (click)="removeFromPreview(i)" type="button" pButton id="closeButton" label="" icon="pi pi-times"></button>
+                                      <i (click)="showHardDetailDocument(preview.url)" class="material-icons">description</i>
+                                      <h2>{{preview.nome}}</h2>
+                                  </div>
+                              </ng-container>
+                          </div>
+
+                          <div ngxSlickItem class="slide" *ngFor="let imagem of imagens; let i = index">
+                              <ng-container *ngIf="imagem.tipo.startsWith('image')">
+                                  <div class="innerDivUm" *ngIf="!imagem.excluido">
+                                      <button class="closeButton" (click)="showCreateConfirmation(imagem, i)" type="button" pButton id="closeButton" label="" icon="pi pi-times"></button>
+                                      <img (click)="showDetailImage(imagem)" [src]="imagem.url" alt="Imagem">
+                                  </div>
+                              </ng-container>
+                               
+                              <ng-container *ngIf="!imagem.tipo.startsWith('image')">
+                                  <div (click)="showDetailDocument(imagem.url)" *ngIf="!imagem.excluido" class="innerDivDois">
+                                      <button class="closeButton" (click)="showCreateConfirmation(imagem, i)" type="button" pButton id="closeButton" label="" icon="pi pi-times"></button>
+                                       <i class="material-icons">description</i>
+                                      <h2>{{imagem.nome}}</h2>
+                                  </div>
+                              </ng-container>
+                          </div>
+                      </ngx-slick-carousel>
+                  </div>
+            </div>
+        </div>
+        <button type="submit" label="Confirmar" id="addDps" pButton></button>
+    </form>
+  </div>
+</p-dialog>
+
+<p-toast [style]="{width: '25%'}"></p-toast>
+
+<app-block-loading></app-block-loading>

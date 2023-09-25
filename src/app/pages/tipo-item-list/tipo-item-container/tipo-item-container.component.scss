@@ -1,0 +1,418 @@
+@import "../../../../variables/variables.scss";
+
+section{
+    width: 90%;
+    height: 85vh;
+    border-radius: 12px 12px 0 0;
+    padding-top: 40px;
+    background-color: $container-background;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: auto;
+    background-image: url("../../../../assets/background.svg");
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: 50% 100%;
+}
+
+//BARRA DE PESQUISA E BOTÃO DE ADICIONAR
+
+.searchBarAndButton{
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.searchBarAndButton .innerDiv{
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.searchBarAndButton .innerDiv span{
+    width: 300px;
+
+}
+.searchBarAndButton .innerDiv span i{
+    position: absolute;
+    top: 45%;
+    margin-top: -0.5rem;
+    color: $spark-color;
+}
+
+.searchBarAndButton .innerDiv span input{
+    width: 100%;
+    background-color: $line-color;
+    color: $spark-color;
+    border: none;
+    border-radius: 12px;
+    
+    &::placeholder{
+        font-size: 14px;
+        color: $spark-color;
+    }
+}
+
+#addItem{
+    width: auto;
+    background-color: $line-color;
+    color: $spark-color;
+    font-size: 14px;
+    border-radius: 12px;
+}
+
+//TABELA
+
+.tableContainer{
+    width: 90%;
+    height: 90%;
+    padding-top: 20px;
+}
+
+.tableContainer .tableSeparator{
+    width: 100%;
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0 12px;
+}
+
+// .tableContainer .tableSeparator .firstTittle{
+//     font-size: 14px;
+//     text-align: left;
+//     padding: 10px;
+//     font-weight: bold;
+//     color: $white-color;
+// }
+
+.tableContainer .tableSeparator .tittle{
+    font-size: 14px;
+    text-align: center;
+    padding: 10px;
+    font-weight: bold;
+    color: $white-color;
+}
+
+.tableContainer .tableSeparator .line{
+    background-color: rgba(24, 43, 71, 0.5);
+    border-radius: 12px;
+    cursor: pointer;
+    color: $white-color;
+    font-size: 14px;
+
+    &:hover{
+        background-color: rgb(57 71 92);
+    }
+}
+
+.tableContainer .tableSeparator .line{
+    transition: transform 0.2s ease;
+}
+
+.tableContainer .tableSeparator .line:hover{
+    transform: translateY(-5px);
+}
+  
+.tableContainer .tableSeparator .line td{
+    width: 100px;
+    height: 60px;
+    text-align: center;
+    vertical-align: middle;
+    padding: 12px 10px;
+}
+
+.tableContainer .tableSeparator .line .tipoItem{
+    width: 20%;
+    border-radius: 12px 0 0 12px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.tableContainer .tableSeparator .line .atributos{
+    height: 60px;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tableContainer .tableSeparator .line .atributos div{
+    width: 70%;
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.tableContainer .tableSeparator .line .valores{
+    width: 35%;
+    background-color: transparent;
+    text-align: center;
+    vertical-align: middle;
+
+}
+
+.tableContainer .tableSeparator .line .eye{
+    height: 60px;
+    text-align: center;
+    vertical-align: middle;
+    padding: 12px;
+    border-radius: 0 12px 12px 0;
+    background-color: transparent;
+}
+
+.tableContainer .tableSeparator .line .eye i{
+    width: 20px;
+    color: $spark-color;
+}
+
+.messageDiv{
+    height: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: $white-color;
+    
+    h1{
+        padding: 10px 0;
+    }
+
+    i{
+        padding: 10px 0;
+        font-size: 30px;
+        -moz-animation:spin 4s linear infinite;
+        -webkit-animation:spin 4s linear infinite;
+        animation:spin 4s linear infinite;
+    }
+
+    @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+    @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+    @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+}
+
+//MODAL DE CRIAÇÃO
+
+.modal{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    flex-wrap: wrap;
+}
+
+.modal form{
+    width: 100%;
+    height: 90%;
+    margin-top: 10px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+
+    .instituicao{
+        width: 78.5%;
+        height: 50px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        border-radius: 5px;
+        border: 1.5px solid $primary-color;
+
+        .instituicaoInput{
+            width: 100%;
+            height: 40px;
+            border: none;
+            outline: 0;
+            padding-left: 10px;     
+        }
+    }
+
+    .numero{
+        width: 20%;
+        height: 50px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        border-radius: 5px;
+        border: 1.5px solid $primary-color;
+
+        .numeroInput{
+            width: 100%;
+            height: 40px;
+            border: none;
+            outline: 0;
+            padding-left: 10px;     
+        }
+    }
+
+    .bairro{
+        width: 49%;
+        height: 50px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        border-radius: 5px;
+        border: 1.5px solid $primary-color;
+
+        .bairroInput{
+            width: 100%;
+            height: 40px;
+            border: none;
+            outline: 0;
+            padding-left: 10px;     
+        }
+    }
+
+    .rua{
+        width: 49%;
+        height: 50px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        border-radius: 5px;
+        border: 1.5px solid $primary-color;
+
+        .ruaInput{
+            width: 100%;
+            height: 40px;
+            border: none;
+            outline: 0;
+            padding-left: 10px;     
+        }
+    }
+
+    .complemento{
+        width: 49%;
+        height: 50px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        border-radius: 5px;
+        border: 1.5px solid $primary-color;
+
+        .complementoInput{
+            width: 100%;
+            height: 40px;
+            border: none;
+            outline: 0;
+            padding-left: 10px;     
+        }
+    }
+
+    .cep{
+        width: 49%;
+        height: 50px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        border-radius: 5px;
+        border: 1.5px solid $primary-color;
+
+        .cepInput{
+            width: 100%;
+            height: 40px;
+            border: none;
+            outline: 0;
+            padding-left: 10px;     
+        }
+    }
+
+    .specialAlign{
+        width: 100%;
+        height: 160px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    
+        .innerDiv{
+            width: 49%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+
+            .municipio{
+                width: 100%;
+                height: 50px;
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                border-radius: 5px;
+                border: 1.5px solid $primary-color;
+        
+                .municipioInput{
+                    width: 100%;
+                    height: 40px;
+                    border: none;
+                    outline: 0;
+                    padding-left: 10px;     
+                }
+            }
+
+            .estado{
+                width: 100%;
+                height: 50px;
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                border-radius: 5px;
+                border: 1.5px solid $primary-color;
+        
+                .estadoInput{
+                    width: 100%;
+                    height: 40px;
+                    border: none;
+                    outline: 0;
+                    padding-left: 10px;     
+                }
+            }
+
+        }
+
+        .imagens{
+            width: 49%;
+            height: 100%;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            border-radius: 5px;
+            border: 1.5px solid $primary-color;
+    
+            .imagensInput{
+                width: 100%;
+                height: 100%;
+                border: none;
+                outline: 0;
+                padding-left: 10px;  
+            }
+        }
+    }
+
+    button{
+        width: 100%;
+        height: 50px;
+        font-size: 20px;
+        border: none;
+        border-radius: 10px;
+        outline: 0;
+        cursor: pointer;
+        background-color: $primary-color;
+        color: $white-color;
+    }
+}
+
+@media(width <= 1600px){
+    .modal > form > .specialAlign{
+        height: 140px;
+    }
+}

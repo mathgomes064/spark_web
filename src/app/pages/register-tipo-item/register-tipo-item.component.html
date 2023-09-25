@@ -1,0 +1,84 @@
+<main>
+    <app-header></app-header>
+
+    <section class="itemSection">
+        <div>
+            <form [formGroup]="registerTipoItemForm" (ngSubmit)="submitTipoItemForm()">
+                <div class="relativeDiv">
+                    <h1>Tipo de Item</h1>
+                </div>
+
+                <span class="descricao p-float-label">
+                    <input formControlName="descricao" class="descricaoInput" pInputText/>
+                    <label class="inputLabel">Descrição</label>
+                </span>
+
+                <div class="grupos">
+                    <div class="dropdown">
+                        <p-dropdown formControlName="grupo_id" placeholder="Grupo" (onChange)="getGrupo($event.value)" [options]="grupos" [filter]="true" filterBy="descricao">
+                            <ng-template pTemplate="item" let-option>
+                                <span>{{ option.descricao}}</span>
+                            </ng-template>
+                            <ng-template pTemplate="selectedItem" let-option>
+                                <span>{{ option.descricao.length > 20 ? option.descricao.substr(0, 20) + '...' : option.descricao }}</span>
+                            </ng-template>
+                        </p-dropdown>
+                    </div>
+                    <div class="dropdown">
+                        <p-dropdown formControlName="linha" placeholder="Linha" [options]="linha">
+                            <ng-template pTemplate="item" let-option>
+                                <span>{{ option.descricao}}</span>
+                            </ng-template>
+                            <ng-template pTemplate="selectedItem" let-option>
+                                <span>{{ option.descricao.length > 20 ? option.descricao.substr(0, 20) + '...' : option.descricao }}</span>
+                            </ng-template>
+                        </p-dropdown>
+                    </div>
+                </div>
+    
+                <p-button id="confirmItem" type="submit" label="Salvar"></p-button>
+                <p-button id="confirmItem" [disabled]="variavelRecebida" (click)="adicionarAtributo()" label="Adicionar Atributo"></p-button>
+            </form>
+        </div>
+    </section>
+
+    <ng-container *ngFor="let atributo of atributos.slice().reverse(); let i = index">
+        <app-atributo-container [atributo]="atributo" (removerIndice)="softRemoveAtributo(atributos.length - 1 - i)" (variavelEvent)="receberVariavel($event)"></app-atributo-container>
+    </ng-container>
+      
+    <p-dialog [draggable]="false" [modal]="true" id="dialog" [(visible)]="createGrupo">
+        <p-header class="modal_header">
+            <img class="modal_icon" src="../../../../assets/head_spark.svg" alt="">
+            <h3>Adicionar Grupo</h3>
+        </p-header>
+        <div class="modal">
+            <form [formGroup]="registerGrupoForm" (ngSubmit)="submitGrupoForm()">
+                <div>
+                    <span class="grupo p-float-label">
+                        <input formControlName="descricao" class="grupoInput" pInputText/>
+                        <label class="grupoLabel">Descrição</label>
+                    </span>
+
+                        <div class="dropdownDiv">
+                            <p-dropdown formControlName="grupo_id" placeholder="Grupo Parente (Opcional)" appendTo="body" [options]="grupos" [filter]="true" filterBy="descricao">
+                                <ng-template pTemplate="item" let-option>
+                                    <span>{{ option.descricao}}</span>
+                                </ng-template>
+                                <ng-template pTemplate="selectedItem" let-option>
+                                    <span>{{ option.descricao.length > 20 ? option.descricao.substr(0, 20) + '...' : option.descricao }}</span>
+                                </ng-template>
+                            </p-dropdown>
+                        </div>
+                </div>
+
+                <button label="Confirmar" id="addProperty" pButton></button>
+            </form>
+        </div>
+    </p-dialog>
+
+    <footer>
+    </footer>
+    <p-toast [style]="{width: '25%'}"></p-toast>
+    <app-block-loading></app-block-loading>
+</main>
+   

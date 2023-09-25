@@ -1,0 +1,467 @@
+<section>
+    <div class="searchBarAndButton">
+        <div class="innerDiv">
+            <span class="p-input-icon-left">
+              <i class="material-icons">search</i>
+              <input #input (keyup)="search(input.value)" placeholder="Pesquisar" type="text" pInputText />
+            </span>
+
+            <button (click)="showCreateModal()" label="Adicionar" id="addButton" icon="pi pi-plus" pButton>
+            </button>
+        </div>
+    </div>
+
+    <div class="tableContainer">
+        <div (click)="showUpdateModal(user)" *ngFor="let user of getUsers; let i = index" class="userCard">
+            <div>
+                <div class="userProfile"><i class="material-icons">person</i></div>
+                <div class="userInfo">
+                    <h2><b><span>Nome:</span> {{user.name}}</b></h2>
+                    <h2><span><b>Email:</b></span> {{user.email}}</h2>
+                    <h2><span><b>Telefone:</b></span> {{user.telefone | telefone}}</h2>
+                </div>
+
+            </div>
+            <i class="material-icons">visibility</i>
+        </div>
+    </div>  
+
+    <p-dialog [draggable]="false" [modal]="true" id="dialog" class="dialog" [(visible)]="createVisible">
+        <p-header class="modal_header">
+            <img class="modal_icon" src="../../../../assets/head_spark.svg" alt="">
+            <h3>Cadastrar Usuário</h3>
+        </p-header>
+        <div class="modal">
+            <form [formGroup]="registerUserForm" (ngSubmit)="submitRegisterUserForm()">
+                <div class="overflowDiv">
+                    <div class="innerDiv">
+                        <span class="nome p-float-label">
+                          <input formControlName="name" class="nomeInput" maxlength="120" pInputText/>
+                          <label class="nomeLabel">Nome</label>
+                        </span>
+        
+                        <span class="cpf p-float-label">
+                            <p-inputMask  id="cpf" [unmask]="true" formControlName="cpf" mask="999.999.999-99"></p-inputMask>
+                            <label class="cpfLabel">CPF</label>
+                        </span>
+        
+                        <span class="telefone p-float-label">
+                            <p-inputMask id="telefone" [unmask]="true" formControlName="telefone" mask="(99) 99999-9999"></p-inputMask>
+                            <label class="telefoneLabel">Telefone</label>
+                        </span>
+        
+                        <span class="email p-float-label">
+                            <input formControlName="email" class="emailInput" maxlength="50" pInputText/>
+                            <label class="emailLabel">Email</label>
+                        </span>
+                    </div>
+                    <form class="container">
+                        <div class="innerDivUm">
+                            <div class="choiceDiV">
+                                <h2>Usuário</h2>
+                                <div>
+                                    <div class="innerCheck">
+                                        <p-checkbox type="checkbox" [(ngModel)]="usuario.visualizar" [binary]="true" [name]="'visualizarUsuario'"></p-checkbox>
+                                        <label>Visualizar</label>
+                                    </div>
+    
+                                    <div class="innerCheck">
+                                        <p-checkbox type="checkbox" [(ngModel)]="usuario.editar" [binary]="true" [name]="'editarUsuario'"></p-checkbox>
+                                        <label>Editar</label>
+                                    </div>
+    
+                                    <div class="innerCheck">
+                                        <p-checkbox type="checkbox" [(ngModel)]="usuario.adicionar" [binary]="true" [name]="'adicionarUsuario'"></p-checkbox>
+                                        <label>Adicionar</label>
+                                    </div>
+    
+                                </div>
+                            </div>
+    
+                            <div class="choiceDiV">
+                                <h2>Propriedade</h2>
+                                <div>
+                                    <div class="innerCheck">
+                                        <p-checkbox type="checkbox" [(ngModel)]="propriedade.visualizar" [binary]="true" [name]="'visualizarPropriedade'"></p-checkbox>
+                                        <label>Visualizar</label>
+                                    </div>
+    
+                                    <div class="innerCheck">
+                                        <p-checkbox type="checkbox" [(ngModel)]="propriedade.editar" [binary]="true" [name]="'editarPropriedade'"></p-checkbox>
+                                        <label>Editar</label>
+                                    </div>
+    
+                                    <div class="innerCheck">
+                                        <p-checkbox type="checkbox" [(ngModel)]="propriedade.adicionar" [binary]="true" [name]="'adicionarPropriedade'"></p-checkbox>
+                                        <label>Adicionar</label>
+                                    </div>
+    
+                                </div>
+                            </div>
+
+                            <div class="choiceDiV">
+                                <h2>Mobile</h2>
+                            </div>
+    
+                            <div class="choiceDiV">
+                                <h2>Edificio</h2>
+                                <div>
+                                    <div class="innerCheck">
+                                        <p-checkbox type="checkbox" [(ngModel)]="edificio.visualizar" [binary]="true" [name]="'visualizarEdificio'"></p-checkbox>
+                                        <label>Visualizar</label>
+                                    </div>
+    
+                                    <div class="innerCheck">
+                                        <p-checkbox type="checkbox" [(ngModel)]="edificio.editar" [binary]="true" [name]="'editarEdificio'"></p-checkbox>
+                                        <label>Editar</label>
+                                    </div>
+    
+                                    <div class="innerCheck">
+                                        <p-checkbox type="checkbox" [(ngModel)]="edificio.adicionar" [binary]="true" [name]="'adicionarEdificio'"></p-checkbox>
+                                        <label>Adicionar</label>
+                                    </div>
+    
+                                </div>
+                            </div>
+    
+                            <div class="choiceDiV">
+                                <h2>Compartimento</h2>
+                                <div>
+                                    <div class="innerCheck">
+                                        <p-checkbox type="checkbox" [(ngModel)]="compartimento.visualizar" [binary]="true" [name]="'visualizarCompartimento'"></p-checkbox>
+                                        <label>Visualizar</label>
+                                    </div>
+    
+                                    <div class="innerCheck">
+                                        <p-checkbox type="checkbox" [(ngModel)]="compartimento.editar" [binary]="true" [name]="'editarCompartimento'"></p-checkbox>
+                                        <label>Editar</label>
+                                    </div>
+    
+                                    <div class="innerCheck">
+                                        <p-checkbox type="checkbox" [(ngModel)]="compartimento.adicionar" [binary]="true" [name]="'adicionarCompartimento'"></p-checkbox>
+                                        <label>Adicionar</label>
+                                    </div>
+    
+                                </div>
+                            </div>
+                        </div>
+    
+                        <hr class="line">
+                    
+                        <div class="innerDivDois">
+                            <div class="choiceDiV">
+                                <h2>Proprietário</h2>
+                                <div>
+                                    <div class="innerCheck">
+                                        <p-checkbox type="checkbox" [(ngModel)]="proprietario.visualizar" [binary]="true" [name]="'visualizarProprietario'"></p-checkbox>
+                                        <label>Visualizar</label>
+                                    </div>
+    
+                                    <div class="innerCheck">
+                                        <p-checkbox type="checkbox" [(ngModel)]="proprietario.editar" [binary]="true" [name]="'editarProprietario'"></p-checkbox>
+                                        <label>Editar</label>
+                                    </div>
+    
+                                    <div class="innerCheck">
+                                        <p-checkbox type="checkbox" [(ngModel)]="proprietario.adicionar" [binary]="true" [name]="'adicionarProprietario'"></p-checkbox>
+                                        <label>Adicionar</label>
+                                    </div>
+    
+                                </div>
+                            </div>
+                           
+                            <div class="choiceDiV">
+                                <h2>Tipo Item</h2>
+                                <div>
+                                    <div class="innerCheck">
+                                        <p-checkbox type="checkbox" [(ngModel)]="tipo_item.visualizar" [binary]="true" [name]="'visualizarTipoItem'"></p-checkbox>
+                                        <label>Visualizar</label>
+                                    </div>
+    
+                                    <div class="innerCheck">
+                                        <p-checkbox type="checkbox" [(ngModel)]="tipo_item.editar" [binary]="true" [name]="'editarTipoItem'"></p-checkbox>
+                                        <label>Editar</label>
+                                    </div>
+    
+                                    <div class="innerCheck">
+                                        <p-checkbox type="checkbox" [(ngModel)]="tipo_item.adicionar" [binary]="true" [name]="'adicionarTipoItem'"></p-checkbox>
+                                        <label>Adicionar</label>
+                                    </div>
+    
+                                </div>
+                            </div>
+
+                            <div class="choiceDiV">
+                            </div>
+    
+                            <div class="choiceDiV">
+                                <h2>Quadros</h2>
+                                <div>
+                                    <div class="innerCheck">
+                                        <p-checkbox type="checkbox" [(ngModel)]="quadros.visualizar" [binary]="true" [name]="'visualizarQuadros'"></p-checkbox>
+                                        <label>Visualizar</label>
+                                    </div>
+    
+                                    <div class="innerCheck">
+                                        <p-checkbox type="checkbox" [(ngModel)]="quadros.editar" [binary]="true" [name]="'editarQuadros'"></p-checkbox>
+                                        <label>Editar</label>
+                                    </div>
+    
+                                    <div class="innerCheck">
+                                        <p-checkbox type="checkbox" [(ngModel)]="quadros.adicionar" [binary]="true" [name]="'adicionarQuadros'"></p-checkbox>
+                                        <label>Adicionar</label>
+                                    </div>
+    
+                                </div>
+                            </div>
+                           
+                            <div class="choiceDiV">
+                                <h2>Itens</h2>
+                                <div>
+                                    <div class="innerCheck">
+                                        <p-checkbox type="checkbox" [(ngModel)]="itens.visualizar" [binary]="true" [name]="'visualizarItens'"></p-checkbox>
+                                        <label>Visualizar</label>
+                                    </div>
+    
+                                    <div class="innerCheck">
+                                        <p-checkbox type="checkbox" [(ngModel)]="itens.editar" [binary]="true" [name]="'editarItens'"></p-checkbox>
+                                        <label>Editar</label>
+                                    </div>
+    
+                                    <div class="innerCheck">
+                                        <p-checkbox type="checkbox" [(ngModel)]="itens.adicionar" [binary]="true" [name]="'adicionarItens'"></p-checkbox>
+                                        <label>Adicionar</label>
+                                    </div>
+    
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <button type="submit" label="Confirmar" id="addUser" pButton></button>
+            </form>
+        </div>
+    </p-dialog>
+
+    <p-dialog [draggable]="false" [modal]="true" id="dialog" [(visible)]="updateVisible">
+        <p-header class="modal_header">
+            <img class="modal_icon" src="../../../../assets/head_spark.svg" alt="">
+            <h3>Editar Usuário</h3>
+        </p-header>
+        <div class="modal">
+            <form [formGroup]="registerUpdateUserForm" (ngSubmit)="submitUpdateUserForm()">
+                <div class="overflowDiv">
+                    <div class="innerDiv">
+                        <span class="nome p-float-label">
+                          <input formControlName="name" class="nomeInput"  maxlength="120" pInputText/>
+                          <label class="nomeLabel">Nome</label>
+                        </span>
+        
+                        <span class="cpf p-float-label">
+                            <p-inputMask  id="cpf" [unmask]="true" formControlName="cpf" mask="999.999.999-99"></p-inputMask>
+                            <label class="cpfLabel">CPF</label>
+                        </span>
+        
+                        <span class="telefone p-float-label">
+                            <p-inputMask id="telefone" [unmask]="true" formControlName="telefone" mask="(99) 99999-9999"></p-inputMask>
+                            <label class="telefoneLabel">Telefone</label>
+                          </span>
+        
+                        <span class="email p-float-label">
+                            <input formControlName="email" class="emailInput"  maxlength="50" pInputText/>
+                            <label class="emailLabel">Email</label>
+                        </span>
+                    </div>
+                    <form class="container">
+                        <div class="innerDivUm">
+                            <div *ngIf="currentUserPermissions.length != 0" class="choiceDiV">
+                                <h2>Usuário</h2>
+                                <div>
+                                    <div class="innerCheck">
+                                        <p-checkbox type="checkbox" [(ngModel)]="currentUserPermissions[0].visualizar" [binary]="true" [ngModelOptions]="{standalone: true}" name="visualizar"></p-checkbox>
+                                        <label>Visualizar</label>
+                                    </div>
+    
+                                    <div class="innerCheck">
+                                        <p-checkbox type="checkbox" [(ngModel)]="currentUserPermissions[0].editar" [binary]="true" name="editar"></p-checkbox>
+                                        <label>Editar</label>
+                                    </div>
+    
+                                    <div class="innerCheck">
+                                        <p-checkbox type="checkbox" [(ngModel)]="currentUserPermissions[0].adicionar" [ngModelOptions]="{standalone: true}" [binary]="true" name="adicionar"></p-checkbox>
+                                        <label>Adicionar</label>
+                                    </div>
+    
+                                </div>
+                            </div>
+    
+                            <div *ngIf="currentUserPermissions.length != 0" class="choiceDiV">
+                                <h2>Propriedade</h2>
+                                <div>
+                                    <div class="innerCheck">
+                                        <p-checkbox type="checkbox" [(ngModel)]="currentUserPermissions[4].visualizar" [ngModelOptions]="{standalone: true}" [binary]="true" name="visualizar"></p-checkbox>
+                                        <label>Visualizar</label>
+                                    </div>
+    
+                                    <div class="innerCheck">
+                                        <p-checkbox type="checkbox" [(ngModel)]="currentUserPermissions[4].editar" [ngModelOptions]="{standalone: true}" [binary]="true" name="editar"></p-checkbox>
+                                        <label>Editar</label>
+                                    </div>
+    
+                                    <div class="innerCheck">
+                                        <p-checkbox type="checkbox" [(ngModel)]="currentUserPermissions[4].adicionar" [ngModelOptions]="{standalone: true}" [binary]="true" name="adicionar"></p-checkbox>
+                                        <label>Adicionar</label>
+                                    </div>
+    
+                                </div>
+                            </div>
+
+                            <div class="choiceDiV">
+                                <h2>Mobile</h2>
+                            </div>
+    
+                            <div *ngIf="currentUserPermissions.length != 0" class="choiceDiV">
+                                <h2>Edificio</h2>
+                                <div>
+                                    <div class="innerCheck">
+                                        <p-checkbox type="checkbox" [(ngModel)]="currentMobileViewPermissions[0].visualizar" [ngModelOptions]="{standalone: true}" [binary]="true" [name]="'visualizarUsuario'"></p-checkbox>
+                                        <label>Visualizar</label>
+                                    </div>
+    
+                                    <div class="innerCheck">
+                                        <p-checkbox type="checkbox" [(ngModel)]="currentUserPermissions[6].editar" [ngModelOptions]="{standalone: true}" [binary]="true" [name]="'editarUsuario'"></p-checkbox>
+                                        <label>Editar</label>
+                                    </div>
+    
+                                    <div class="innerCheck">
+                                        <p-checkbox type="checkbox" [(ngModel)]="currentUserPermissions[6].adicionar" [ngModelOptions]="{standalone: true}" [binary]="true" [name]="'adicionarUsuario'"></p-checkbox>
+                                        <label>Adicionar</label>
+                                    </div>
+    
+                                </div>
+                            </div>
+    
+                            <div *ngIf="currentUserPermissions.length != 0" class="choiceDiV">
+                                <h2>Compartimento</h2>
+                                <div>
+                                    <div class="innerCheck">
+                                        <p-checkbox type="checkbox" [(ngModel)]="currentMobileViewPermissions[0].visualizar" [ngModelOptions]="{standalone: true}" [binary]="true" [name]="'visualizarCompartimento'"></p-checkbox>
+                                        <label>Visualizar</label>
+                                    </div>
+    
+                                    <div class="innerCheck">
+                                        <p-checkbox type="checkbox" [(ngModel)]="currentUserPermissions[7].editar" [ngModelOptions]="{standalone: true}" [binary]="true" [name]="'editarCompartimento'"></p-checkbox>
+                                        <label>Editar</label>
+                                    </div>
+    
+                                    <div class="innerCheck">
+                                        <p-checkbox type="checkbox" [(ngModel)]="currentUserPermissions[7].adicionar" [ngModelOptions]="{standalone: true}" [binary]="true" [name]="'adicionarCompartimento'"></p-checkbox>
+                                        <label>Adicionar</label>
+                                    </div>
+    
+                                </div>
+                            </div>
+                        </div>
+    
+                        <hr class="line">
+    
+                        <div class="innerDivDois">
+                            <div *ngIf="currentUserPermissions.length != 0" class="choiceDiV">
+                                <h2>Proprietário</h2>
+                                <div>
+                                    <div class="innerCheck">
+                                        <p-checkbox type="checkbox" [(ngModel)]="currentUserPermissions[3].visualizar" [ngModelOptions]="{standalone: true}" [binary]="true" name="visualizar"></p-checkbox>
+                                        <label>Visualizar</label>
+                                    </div>
+    
+                                    <div class="innerCheck">
+                                        <p-checkbox type="checkbox" [(ngModel)]="currentUserPermissions[3].editar" [ngModelOptions]="{standalone: true}" [binary]="true" name="editar"></p-checkbox>
+                                        <label>Editar</label>
+                                    </div>
+    
+                                    <div class="innerCheck">
+                                        <p-checkbox type="checkbox" [(ngModel)]="currentUserPermissions[3].adicionar" [ngModelOptions]="{standalone: true}" [binary]="true" name="adicionar"></p-checkbox>
+                                        <label>Adicionar</label>
+                                    </div>
+    
+                                </div>
+                            </div>
+    
+                            <div *ngIf="currentUserPermissions.length != 0" class="choiceDiV">
+                                <h2>Tipo Item</h2>
+                                <div>
+                                    <div class="innerCheck">
+                                        <p-checkbox type="checkbox" [(ngModel)]="currentUserPermissions[1].visualizar" [ngModelOptions]="{standalone: true}" [binary]="true" name="visualizar"></p-checkbox>
+                                        <label>Visualizar</label>
+                                    </div>
+    
+                                    <div class="innerCheck">
+                                        <p-checkbox type="checkbox" [(ngModel)]="currentUserPermissions[1].editar" [ngModelOptions]="{standalone: true}"  [binary]="true" name="editar"></p-checkbox>
+                                        <label>Editar</label>
+                                    </div>
+    
+                                    <div class="innerCheck">
+                                        <p-checkbox type="checkbox" [(ngModel)]="currentUserPermissions[1].adicionar" [ngModelOptions]="{standalone: true}" [binary]="true" name="adicionar"></p-checkbox>
+                                        <label>Adicionar</label>
+                                    </div>
+    
+                                </div>
+                            </div>
+
+                            <div class="choiceDiV">
+                            </div>
+    
+                            <div *ngIf="currentUserPermissions.length != 0" class="choiceDiV">
+                                <h2>Quadros</h2>
+                                <div>
+                                    <div class="innerCheck">
+                                        <p-checkbox type="checkbox" [(ngModel)]="currentMobileViewPermissions[0].visualizar" [ngModelOptions]="{standalone: true}" [binary]="true" [name]="'visualizarQuadros'"></p-checkbox>
+                                        <label>Visualizar</label>
+                                    </div>
+    
+                                    <div class="innerCheck">
+                                        <p-checkbox type="checkbox" [(ngModel)]="currentUserPermissions[2].editar" [ngModelOptions]="{standalone: true}" [binary]="true" [name]="'editarQuadros'"></p-checkbox>
+                                        <label>Editar</label>
+                                    </div>
+    
+                                    <div class="innerCheck">
+                                        <p-checkbox type="checkbox" [(ngModel)]="currentUserPermissions[2].adicionar" [ngModelOptions]="{standalone: true}" [binary]="true" [name]="'adicionarQuadros'"></p-checkbox>
+                                        <label>Adicionar</label>
+                                    </div>
+    
+                                </div>
+                            </div>
+                           
+                            <div *ngIf="currentUserPermissions.length != 0" class="choiceDiV">
+                                <h2>Itens</h2>
+                                <div>
+                                    <div class="innerCheck">
+                                        <p-checkbox type="checkbox" [(ngModel)]="currentMobileViewPermissions[0].visualizar" [ngModelOptions]="{standalone: true}" [binary]="true" [name]="'visualizarItens'"></p-checkbox>
+                                        <label>Visualizar</label>
+                                    </div>
+    
+                                    <div class="innerCheck">
+                                        <p-checkbox type="checkbox"  [(ngModel)]="currentUserPermissions[5].editar" [ngModelOptions]="{standalone: true}" [binary]="true" [name]="'editarItens'"></p-checkbox>
+                                        <label>Editar</label>
+                                    </div>
+    
+                                    <div class="innerCheck">
+                                        <p-checkbox type="checkbox" [(ngModel)]="currentUserPermissions[5].adicionar" [ngModelOptions]="{standalone: true}" [binary]="true" [name]="'adicionarItens'"></p-checkbox>
+                                        <label>Adicionar</label>
+                                    </div>
+    
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                
+                <button type="submit" label="Confirmar" id="addUser" pButton></button>
+            </form>
+        </div>
+    </p-dialog>
+
+    <p-toast [style]="{width: '25%'}"></p-toast>
+    <app-block-loading></app-block-loading>
+</section>

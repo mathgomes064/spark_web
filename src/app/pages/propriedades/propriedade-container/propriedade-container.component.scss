@@ -1,0 +1,674 @@
+@import "../../../../variables/variables.scss";
+
+section{
+    width: 90%;
+    height: 85vh;
+    border-radius: 12px 12px 0 0;
+    padding-top: 40px;
+    background-color: $container-background;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: auto;
+    background-image: url("../../../../assets/background.svg");
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: 50% 100%;
+}
+
+.searchBarAndButton{
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.searchBarAndButton .innerDiv{
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.searchBarAndButton .innerDiv span{
+    width: 300px;
+
+    i{
+        position: absolute;
+        top: 45%;
+        margin-top: -0.5rem;
+        color: $spark-color;
+    }
+
+    input{
+        width: 100%;
+        background-color: $line-color;
+        color: $spark-color;
+        border-radius: 12px;
+
+        &::placeholder{
+            font-size: 14px;
+            color: $spark-color;
+        }
+    }
+}
+
+.searchBarAndButton .innerDiv #addButton{
+    width: auto;
+    background-color: $line-color;
+    color: $spark-color;
+    font-size: 14px;
+    border-radius: 12px;
+}
+
+.searchBarAndButton .innerDiv .addDiv{
+    width: 10%;
+    height: 35px;
+    outline: 0;
+    border: none;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: $primary-color;
+    color: $white-color;
+    cursor: pointer;
+}
+
+.tableContainer{
+    width: 90%;
+    height: 90%;
+    padding-top: 20px;
+}
+
+.tableSeparator{
+  border-collapse: separate;
+  border-spacing: 0 12px;
+}
+
+.tableSeparator .line{
+    transition: transform 0.2s ease;
+
+    &:hover{
+        transform: translateY(-5px);
+        background-color: rgb(57 71 92);
+
+    }
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.messageDiv{
+    height: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: $white-color;
+    
+    h1{
+        padding: 10px 0;
+    }
+
+    i{
+        padding: 10px 0;
+        font-size: 30px;
+        -moz-animation:spin 4s linear infinite;
+        -webkit-animation:spin 4s linear infinite;
+        animation:spin 4s linear infinite;
+    }
+
+    @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+    @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+    @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+}
+
+.tittle{
+    font-size: 14px;
+    text-align: center;
+    padding: 10px;
+    font-weight: bold;
+    color: $white-color;
+}
+
+.line{
+    font-size: 14px;
+    background-color: rgba(24, 43, 71, 0.5);
+    border-radius: 12px;
+    cursor: pointer;
+    top: 0;
+    color: $white-color;
+}
+
+.institution{
+    width: 35%;
+    border-radius: 12px 0 0 12px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.rua{
+    width: 30%;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.municipio{
+    text-align: center;
+    vertical-align: middle;
+}
+
+.edificio{
+    width: 7%;
+    color: $spark-color;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.edit{
+    width: 7%;
+    border-radius: 0 12px 12px 0;
+    color: $spark-color;
+    text-align: center;
+    vertical-align: middle;
+}
+
+td{
+    height: 60px;
+    text-align: center;
+    padding: 12px;
+
+    img{
+        width: 20px;
+        cursor: pointer;
+    }
+}
+
+#dialog{
+    ::ng-deep{
+        .p-dialog{
+            width: 50vw;
+            height: 90vh;
+        }
+    }
+
+}
+
+.modal_header{
+    width: auto;
+    height: 50px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 16px;
+
+    .modal_icon{
+        width: 25px;
+        height: 25px;
+        margin: 0;
+        position: relative;
+        top: 0px;
+    }
+
+    h3{
+        width: auto;
+        margin-left: 10px;
+    }
+
+}
+
+.modal{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.modal form{
+    width: 100%;
+    height: 100%;
+    margin-top: 10px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+
+    .instituicao{
+        width: 68%;
+        height: 50px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+
+        .instituicaoInput{
+            width: 100%;
+            height: 100%;
+            padding-left: 10px;
+            border: 1px solid $spark-color;
+            background-color: $dialog-color;
+            color: $white-color;
+            font-size: 14px;
+
+        }
+
+        .instituicaoLabel{
+            color: $white-color;
+            background-color: $dialog-color;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+    }
+
+    .numero{
+        width: 23%;
+        height: 50px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+
+        .numeroInput{
+            width: 100%;
+            height: 100%;
+            color: $white-color;
+            border: 1px solid $spark-color;
+            background-color: $dialog-color;
+            font-size: 14px;
+        }
+
+        .numeroLabel{
+            color: $white-color;
+            background-color: $dialog-color;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+    }
+
+    .shared{
+        width: 49%;
+        height: 50px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+
+        .sharedInput{
+            width: 100%;
+            height: 100%;
+            color: $white-color;
+            border: 1px solid $spark-color;
+            background-color: $dialog-color;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .sharedLabel{
+            color: $white-color;
+            background-color: $dialog-color;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+    }
+
+    .cep{
+        width: 24%;
+        height: 50px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+
+        .cepInput{
+            width: 100%;
+            height: 100%;
+            color: $white-color;
+            border: 1px solid $spark-color;
+            background-color: $dialog-color;
+            border-radius: 4px;
+
+            ::ng-deep{
+                .p-inputtext{
+                    font-size: 14px;
+                }
+            }
+        }
+
+
+        .cepLabel{
+            color: $white-color;
+            background-color: $dialog-color;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+    }
+
+    .specialAlign{
+        width: 100%;
+        height: 160px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+       
+
+        .imagens{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 4px;
+            border: 1px solid $spark-color;
+            color: $white-color;
+            background-color: $dialog-color;
+
+
+            .AddSide{
+                width: 15%;
+                height: 100%;
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+
+                .addImages{
+                    width: 40px;
+                    height: 40px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    border-radius: 100px;
+                    border: none;
+                    cursor: pointer;
+                    background-color: $spark-color;
+                    color: $primary-color;
+                    margin: 0 5px;
+                }
+    
+                .documentsLabel{
+                    background-color: $dialog-color;
+                    border-radius: 4px;
+                    position: absolute;
+                    top: -13px;
+                    left: 10px;
+                    padding: 5px;
+                    font-size: 12px;
+                }
+
+                input{
+                    width: 100%;
+                    height: 100%;
+                    border: none;
+                    outline: 0;
+                    cursor: pointer;
+                    display: none;
+                }
+    
+                img{
+                    width: 300px;
+                    height: 150px;
+                }
+            }
+
+            .previewSide{
+                width: 80%;
+                height: 100%;
+
+                .warningDiv{
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    h2{
+                        font-size: 14px;;
+                    }
+
+                }
+
+                .carousel{
+                    width: 94%;
+                    height: 100%;
+
+                    .slide{
+                        height: 139px;
+                    }
+                 
+                    .innerDivUm{
+                        width: 130px;
+                        height: 80%;
+                        cursor: pointer;
+                        margin: 0 auto;
+                    }
+
+                    .innerDivDois{
+                        width: 180px;
+                        height: 85%;
+                        cursor: pointer;
+                        margin: 0 auto;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: space-around;
+                        align-items: center;
+
+                        .closeButton{
+                            position: relative;
+                            z-index: 10000000;
+                            top: 13%;
+                            left: 32%;
+                            
+                        }
+    
+                        #closeButton{
+                            width: 10px;
+                            height: 10px;
+                            background-color: $red-color;
+                            border-radius: 100px;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                        }
+    
+                        .material-icons{
+                            font-size: 50px;
+                            position: relative;
+                            top: -20px;
+                        }
+                        
+                        i{
+                            font-size: 30px;
+                            color: $white-color
+                        }
+        
+                        h2{
+                            color: $white-color;
+                            text-align: center;
+                        }
+                    }
+
+                    .closeButton{
+                        width: 20px;
+                        height: 20px;
+                        position: relative;
+                        z-index: 10000000;
+                        top: 18%;
+                        left: 77%;
+                        background-color: $red-color;
+                        color: $white-color;
+                        border-radius: 100px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        border: none;
+                        cursor: pointer;
+                    }
+
+                    
+                }
+            }
+        }
+    }
+
+    #addProperty{
+        width: 100%;
+        height: 40px;
+        font-size: 14px;
+        border: none;
+        border-radius: 4px;
+        outline: 0;
+        cursor: pointer;
+        background-color: $spark-color;
+        color: $primary-color;
+    }
+}
+
+.confirmModal{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.confirmModal .warningDiv{
+    width: 100%;
+    height: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    i{
+        color: $spark-color;
+        font-size: 50px;
+    }
+
+    h2{
+        font-size: 14px;
+        color: $white-color
+    }
+}
+
+.confirmModal .warningButtonDiv{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    #cancelButton{
+        ::ng-deep{
+            .p-button{
+                background-color: transparent;
+                border: 1px solid $white-color;
+                color: $white-color;
+            }
+        }
+    }
+
+    #confirmationButton{
+        ::ng-deep{
+            .p-button{
+                background-color: $spark-color;
+            }
+        }
+    }
+}
+
+.detailModal{
+    width: 100%;
+    height: 100%;
+
+    img{
+        width: 100%;
+        height: 100%;
+    }
+}
+
+:host ::ng-deep{
+    .p-component {
+        color: $black-color;
+    }
+
+    .p-dropdown {
+        width: 100%;
+        display: inline-flex;
+        cursor: pointer;
+        position: relative;
+        -webkit-user-select: none;
+        user-select: none;
+        background-color: $dialog-color;   
+        border: 1px solid $spark-color;
+    }
+
+    .p-dropdown .p-dropdown-label {
+        background: transparent;
+        border: 0 none;
+        color: $white-color;
+        font-size: 14px;
+    }
+
+    .p-dropdown-items-wrapper{
+        background-color: $white-color;
+    }
+
+    .p-dropdown .p-dropdown-trigger {
+        background: transparent;
+        color: $white-color;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+    }
+
+    .p-inputtext {
+        width: 100%;
+        height: 99%;
+        border: none;
+
+        &::placeholder{
+            color: $white-color;
+        }
+    }
+
+    .p-element{
+        padding: none;
+    }
+
+    img{
+        width: 100%;
+        height: 80%;
+        cursor: pointer;
+        margin: 0 auto;
+        position: relative;
+        top: -8px
+    }
+
+}
+
+:host ::ng-deep .p-dialog .p-dialog-content {
+    background: $dialog-color;
+    color: rgba(0, 0, 0, 0.87);
+}
+
+:host ::ng-deep .p-dialog-draggable .p-dialog-header  {
+    background: $dialog-color;
+    color: $white-color;
+}
+
+:host ::ng-deep .p-dialog .p-dialog-header .p-dialog-header-icon:last-child {
+    margin-right: 0;
+    color: white;
+}
+
+@media(width <= 1600px){
+    .modal > form > .specialAlign{
+        height: 140px;
+    }
+}
+
+
+

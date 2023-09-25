@@ -1,0 +1,547 @@
+@import "../../../../variables/variables.scss";
+
+section{
+    width: 90%;
+    height: 85vh;
+    border-radius: 12px 12px 0 0;
+    padding-top: 40px;
+    background-color: $container-background;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: auto;
+    background-image: url("../../../../assets/background.svg");
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: 50% 100%;
+}
+
+.searchBarAndButton{
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.searchBarAndButton .innerDiv{
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.searchBarAndButton .innerDiv span{
+    width: 300px;
+
+    i{
+        position: absolute;
+        top: 45%;
+        margin-top: -0.5rem;
+        color: $spark-color;
+    }
+
+    input{
+        width: 100%;
+        background-color: $line-color;
+        color: $spark-color;
+        border-radius: 12px;
+
+
+        &::placeholder{
+            font-size: 14px;
+            color: $spark-color;
+        }
+    }
+}
+
+.searchBarAndButton .innerDiv #addButton{
+    width: auto;
+    background-color: $line-color;
+    color: $spark-color;
+    font-size: 14px;
+    border-radius: 12px;
+}
+
+.searchBarAndButton .innerDiv .addDiv{
+    width: 10%;
+    height: 35px;
+    outline: 0;
+    border: none;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: $primary-color;
+    color: $white-color;
+    cursor: pointer;
+}
+
+.tableContainer{
+    width: 90%;
+    height: 90%;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.tableContainer .userCard{
+    width: 47%;
+    height: 100px;
+    border-radius: 19px;
+    padding: 10px;
+    margin-top: 20px;
+    background-color: rgba(24, 43, 71, 0.5);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+
+    &:hover{
+        transform: translateY(-5px);
+        background-color: rgb(57 71 92);
+    }
+
+}
+
+.tableContainer .userCard div{
+    width: 80%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tableContainer .userCard .userProfile{
+    width: 60px;
+    height: 60px;
+    background-color: $spark-color;
+    border-radius: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tableContainer .userCard .userProfile i{
+    font-size: 40px;
+    color: $line-color;
+}
+
+.tableContainer .userCard .userInfo{
+    width: 80%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-start;
+    color: $white-color;
+}
+
+.tableContainer .userCard .userInfo h2{
+    font-size: 14px;
+}
+
+.tableContainer .userCard .userInfo h2 span{
+    font-weight: bold;
+}
+
+.tableContainer .userCard i{
+    font-size: 30px;
+    color: $spark-color;
+}
+
+:host ::ng-deep .p-dialog .p-dialog-content {
+    background: $dialog-color;
+    color: rgba(0, 0, 0, 0.87);
+    padding: 0 1.5rem 0 1.5rem;
+}
+
+:host ::ng-deep .p-dialog-draggable .p-dialog-header {
+    background: $dialog-color;
+    color: $white-color;
+}
+
+:host ::ng-deep .p-dialog .p-dialog-header .p-dialog-header-icon:last-child {
+    margin-right: 0;
+    color: white;
+}
+
+#dialog{
+    ::ng-deep{
+        .p-dialog{
+            width: 50vw;
+            height: 80vh;
+        }
+    }
+}
+
+.modal_header{
+    width: auto;
+    height: 50px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 16px;
+
+    .modal_icon{
+        width: 25px;
+        height: 25px;
+        margin: 0;
+        position: relative;
+        top: 0px;
+    }
+
+    h3{
+        width: auto;
+        margin-left: 10px;
+    }
+}
+
+.modal{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.modal form{
+    width: 100%;
+    height: 95%;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+
+    .overflowDiv{
+        width: 100%;
+        height: 90%;
+        border-radius: 4px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        overflow-y: auto;
+    }
+
+    .innerDiv{
+        padding-top: 5px;
+        width: 100%;
+        height: 150px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .nome{
+        width: 49%;
+        height: 50px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+
+        .nomeInput{
+            width: 100%;
+            height: 100%;
+            padding-left: 10px;
+            border: 1px solid $spark-color;
+            background-color: $dialog-color;
+            color: $white-color;
+            font-size: 14px;
+        }
+
+        .nomeLabel{
+            color: $white-color;
+            background-color: $dialog-color;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+    }
+
+    .cpf{
+        width: 49%;
+        height: 50px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+
+        #cpf{
+            width: 100%;
+            height: 100%;
+            border: none;
+            outline: 0;
+            border-radius: 4px;
+            background-color: $dialog-color;
+            color: $white-color;    
+            
+            ::ng-deep{
+                .p-element{
+                    width: 100%;
+                    height: 100%;
+                    border: 1px solid $spark-color;
+                    background-color: transparent;
+                    font-size: 14px;
+                }
+            }
+        }
+
+        .cpfLabel{
+            color: $white-color;
+            background-color: $dialog-color;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+    }
+
+    .telefone{
+        width: 49%;
+        height: 50px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+
+        #telefone{
+            width: 100%;
+            height: 100%;
+            border: none;
+            outline: 0;
+            border-radius: 4px;
+            background-color: $dialog-color;
+            color: $white-color;    
+            
+            ::ng-deep{
+                .p-element{
+                    width: 100%;
+                    height: 100%;
+                    border: 1px solid $spark-color;
+                    background-color: transparent;
+                    font-size: 14px;
+                }
+            }
+        }
+
+        .telefoneLabel{
+            color: $white-color;
+            background-color: $dialog-color;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+    }
+
+    .email{
+        width: 49%;
+        height: 50px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+
+        .emailInput{
+            width: 100%;
+            height: 100%;
+            padding-left: 10px;
+            border: 1px solid $spark-color;
+            background-color: $dialog-color;
+            color: $white-color;
+            font-size: 14px;
+        }
+
+        .emailLabel{
+            color: $white-color;
+            background-color: $dialog-color;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+    }
+
+    .password{
+        width: 49%;
+        height: 50px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+
+        .passwordInput{
+            width: 100%;
+            height: 100%;
+            padding-left: 10px;
+            color: $white-color;
+            border: 1px solid $primary-color;
+            background-color: $line-color;
+        }
+
+        .passwordLabel{
+            color: $white-color;
+            background-color: $line-color;
+            border-radius: 4px;
+        }
+    }
+
+    .container{
+        width: 100%;
+        height: 400px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin: 0;
+        overflow: none;
+
+        .innerDivUm{
+            width: 49%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+
+            .choiceDiV{
+                width: 100%;
+                height: 40%;
+                padding: 0 5px;
+                border-radius: 4px;
+                background-color: $dialog-color;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+
+                h2{
+                    width: 100%;
+                    color: $white-color;
+                    font-weight: bold;
+                    padding: 5px 0 5px 5px;
+                    font-size: 14px;
+                }
+
+                div{
+                    color: $white-color;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+
+                    .innerCheck{
+                        width: 29%;
+                    }
+                }
+
+
+                // label{
+                //     font-size: 14px;
+                // }
+
+                // input{
+                //     cursor: pointer;
+                // }
+            }
+
+        }
+
+        .line{
+            height: 100%;
+            border-color: $spark-color;
+        }
+
+        .innerDivDois{
+            width: 49%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+
+            .choiceDiV{
+                width: 100%;
+                height: 40%;
+                padding: 0 5px;
+                border-radius: 4px;
+                background-color: $dialog-color;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+
+                h2{
+                    width: 100%;
+                    color: $white-color;
+                    font-weight: bold;
+                    padding: 5px 0 5px 5px;
+                    font-size: 14px;
+                }
+
+                div{
+                    color: $white-color;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                }
+                
+                .innerCheck{
+                    width: 29%;
+                }
+
+                // label{
+                //     font-size: 14px;
+                // }
+
+                // input{
+                //     cursor: pointer;
+                // }
+            }
+
+
+        }
+    }
+
+    #addUser{
+        width: 100%;
+        height: 40px;
+        font-size: 20px;
+        border: none;
+        border-radius: 4px;
+        margin-top: 15px;
+        outline: 0;
+        cursor: pointer;
+        background-color: $spark-color;
+        color: $primary-color;
+        font-size: 14px;
+
+    }
+
+
+
+}
+
+:host ::ng-deep{
+    .p-inputtext {
+        background-color: $line-color;
+        border: none;
+        color: $white-color;
+
+        &::placeholder{
+            color: $white-color;
+        }
+    }
+
+    .p-element {
+        width: 100%;
+    }
+
+    .p-checkbox .p-checkbox-box.p-highlight {
+        border-color: $spark-color;
+        background: $spark-color;
+
+        &:hover{
+            border-color: $spark-color;
+            background: $spark-color;   
+        }
+    }
+
+    .p-checkbox .p-checkbox-box .p-checkbox-icon{
+        color: $line-color;
+    }
+
+}
